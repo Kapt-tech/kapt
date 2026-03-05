@@ -9,7 +9,21 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                volt: "#BAFF29",
+                volt: "#CEFF00",      // action-volt
+                asphalt: "#0A0A0A",   // asphalt-black
+                pavement: "#262626",  // pavement-gray
+            },
+            fontFamily: {
+                mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+            },
+            borderRadius: {
+                card: "16px",
+            },
+            transitionTimingFunction: {
+                kapt: "cubic-bezier(0.4, 0, 0.2, 1)",
+            },
+            transitionDuration: {
+                kapt: "200ms",
             },
         },
     },

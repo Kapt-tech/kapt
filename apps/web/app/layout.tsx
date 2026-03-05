@@ -13,6 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+      </head>
       <body className="antialiased bg-black text-white" suppressHydrationWarning>
         {children}
       </body>
