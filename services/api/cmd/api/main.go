@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/kapt/api/internal/repository"
 	_ "github.com/lib/pq"
-	"github.com/kapt/api/internal/db/sqlc"
 )
 
 func main() {
@@ -28,8 +28,8 @@ func main() {
 
 	fmt.Println("🚀 Kapt API: Conexão com o banco estabelecida!")
 
-	queries := db.New(conn)
+	queries := repository.New(conn)
 	fmt.Println("✅ SQLC: Camada de persistência pronta.")
-	
+
 	_ = queries
 }
