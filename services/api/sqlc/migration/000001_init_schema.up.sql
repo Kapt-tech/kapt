@@ -22,6 +22,7 @@ CREATE TABLE occurrences (
     location_geom GEOMETRY(Point, 4326),
     start_time TIMESTAMPTZ NOT NULL,
     end_time TIMESTAMPTZ NOT NULL,
+    status TEXT NOT NULL DEFAULT 'active',
     slug TEXT UNIQUE NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

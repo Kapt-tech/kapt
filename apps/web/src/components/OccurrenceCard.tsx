@@ -10,7 +10,7 @@ export interface OccurrenceCardProps {
     photographerCount: number;
     date: string;
     images?: string[];
-    tag?: 'novo' | 'destaque';
+    tag?: 'novo' | 'destaque' | 'em breve';
 }
 
 export const OccurrenceCard = ({
