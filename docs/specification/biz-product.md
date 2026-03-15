@@ -1,3 +1,12 @@
+---
+title: "Product Specification"
+description: "Definição do produto, personas principais (Fotógrafo e Atleta) e jornadas de uso do Kapt."
+type: "biz"
+epic: "platform"
+status: "approved"
+related_issues: []
+---
+
 # Product Specification: Kapt ⚡
 
 ## 1. Executive Summary

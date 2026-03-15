@@ -1,3 +1,11 @@
+---
+title: "Kapt Project Governance & Context"
+description: "Diretrizes primárias de governança, stack e comunicação para a IA."
+type: "tech"
+epic: "platform"
+status: "approved"
+---
+
 # Gemini Skill: Kapt Project Governance & Context
 
 ## 1. Project Mission

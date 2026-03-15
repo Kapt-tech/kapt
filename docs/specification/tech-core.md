@@ -1,3 +1,12 @@
+---
+title: "Kapt Infrastructure & Engineering"
+description: "Padrões de arquitetura, stack tecnológico, banco de dados e metas de performance."
+type: "tech"
+epic: "platform"
+status: "approved"
+related_issues: []
+---
+
 # Tech Spec: Kapt Infrastructure & Engineering
 
 ## 1. Monorepo & Package Management
