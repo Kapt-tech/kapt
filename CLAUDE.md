@@ -86,6 +86,22 @@ Files in `docs/specification/` must follow the format: `<category>-<slug>.md`
 - `ux-`: User flows and interface designs.
 - `api-`: Backend/API specific constraints.
 
+### 3. Specification Front Matter & Hard Gate Enforcement
+
+All files in `docs/specification/` MUST include a YAML Front Matter block at the top.
+
+Example:
+---
+title: "Identification Engine"
+description: "Biometric matching logic and Selfie/Bib upload flows."
+type: "biz"
+epic: "seeker"
+status: "approved"
+related_issues: ["UC02"]
+---
+
+**CRITICAL RULE FOR CLAUDE CODE:** Before writing ANY implementation code, you must read the related `.md` spec. If the `status` in the Front Matter is `draft` or `in-review`, you MUST STOP and refuse to write code until the user changes it to `approved`. This is the `<HARD-GATE>` in action.
+
 ## Process Flow (DOT)
 ```dot
 digraph brainstorming {

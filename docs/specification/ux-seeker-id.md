@@ -1,3 +1,12 @@
+---
+title: "Seeker Identification & Privacy Flow"
+description: "Fluxo arquitetural de busca por biometria/bib e implementação da barreira de privacidade (LGPD)."
+type: "ux"
+epic: "seeker"
+status: "approved"
+related_issues: ["UC02", "UC03"]
+---
+
 # Spec: Seeker Identification & Privacy Flow
 
 ## 1. Context & Objectives

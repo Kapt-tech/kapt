@@ -1,3 +1,12 @@
+---
+title: "Business Model Canvas"
+description: "Visão geral do modelo de negócios, monetização, propostas de valor e segmentos de clientes do Kapt."
+type: "biz"
+epic: "platform"
+status: "approved"
+related_issues: []
+---
+
 # Business Model Canvas: Kapt
 
 ## 1. Customer Segments
