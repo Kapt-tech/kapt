@@ -1,4 +1,13 @@
-# Kapt Project Intelligence & Brainstorming
+---
+title: "Kapt Project Intelligence & AI Conventions"
+description: "Glossário de domínio, regras de negócio, padrões de desenvolvimento e fluxo de brainstorming para uso do Claude Code no projeto Kapt."
+type: "tech"
+epic: "platform"
+status: "approved"
+related_issues: []
+---
+
+## Kapt Project Intelligence & Brainstorming
 
 ## 📖 Glossary & Entities
 - **Occurrence:** The central domain entity. Represents a physical event (race, cycling, etc.).
