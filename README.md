@@ -10,7 +10,7 @@ Este projeto é um Monorepo de alta performance gerenciado pelo **Turborepo** ut
 
 - **`/apps/web`**: Aplicação Web em Next.js 16.1.5 (Action-Volt Design).
 - **`/apps/mobile`**: Aplicação Mobile (Expo/React Native).
-- **`/services/api`**: Backend em Go (Nativo `net/http`, SQLC, Neon Postgres).
+- **`/services`**: Backend em Go (Nativo `net/http`, SQLC, Neon Postgres).
 - **`/docs/specification`**: Fonte única da verdade para [Spec-Driven Development](./docs/specification).
 
 ## 🏗️ Project Structure (Monorepo)
@@ -23,14 +23,13 @@ O projeto utiliza **Turborepo** para gerenciar as aplicações e serviços, gara
 │   ├── web/                # Seeker Dashboard (Next.js + Tailwind)
 │   ├── mobile/             # App do Cidadão (React Native + Nativewind) - [Em breve]
 │   └── base/               # Landing Page & Design Foundation
-├── services/
-│   └── api/                # Backend em Go (Clean Architecture / Hexagonal)
-│       ├── cmd/api/        # Ponto de entrada (main.go)
-│       ├── internal/       # Lógica de Negócio Encapsulada
-│       │   ├── handler/    # Adaptadores de Entrada (HTTP/REST)
-│       │   ├── service/    # Regras de Domínio e Casos de Uso
-│       │   └── repository/ # Adaptadores de Saída (Persistência/DB)
-│       └── sqlc/           # Schemas e Queries SQL (Type-safe)
+├── services/               # Backend em Go (Clean Architecture / Hexagonal)
+│   ├── cmd/api/            # Ponto de entrada (main.go)
+│   ├── internal/           # Lógica de Negócio Encapsulada
+│   │   ├── handler/        # Adaptadores de Entrada (HTTP/REST)
+│   │   ├── service/        # Regras de Domínio e Casos de Uso
+│   │   └── repository/     # Adaptadores de Saída (Persistência/DB)
+│   └── sqlc/               # Schemas e Queries SQL (Type-safe)
 ├── packages/               # Configurações e bibliotecas compartilhadas
 │   ├── ui/                 # Componentes de interface compartilhados
 │   ├── typescript-config/  # Configurações de TS padronizadas

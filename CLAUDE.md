@@ -57,7 +57,7 @@ You MUST create a task for each of these items and complete them in order:
 3. **Ask clarifying questions** — one at a time.
 4. **Propose 2-3 approaches** — with trade-offs and recommendation.
 5. **Present design** — section by section, getting approval.
-6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`.
+6. **Write design doc** — save to `docs/specification/YYYY-MM-DD-<topic>-design.md`.
 7. **Transition to implementation** — invoke writing-plans skill.
 
 ## Process Flow (DOT)
