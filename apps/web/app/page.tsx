@@ -1,11 +1,26 @@
 "use client";
 
+import { useState } from 'react';
 import { OccurrenceCard } from '../src/components/OccurrenceCard';
+import { OTPModal } from '../src/components/OTPModal';
 import { MOCK_OCCURRENCES } from '../src/mocks/occurrences';
 
 export default function Page() {
+  const [isOTPOpen, setIsOTPOpen] = useState(false);
+
+  const handleAuthSuccess = (token: string) => {
+    localStorage.setItem('kapt_token', token);
+    setIsOTPOpen(false);
+  };
+
   return (
     <main className="min-h-screen bg-black text-white p-6 md:p-12">
+      <OTPModal
+        isOpen={isOTPOpen}
+        onClose={() => setIsOTPOpen(false)}
+        onSuccess={handleAuthSuccess}
+      />
+
       {/* Header atualizado com termo expressivo */}
       <header className="mb-16 max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between border-b border-white/5 pb-10">
         <div>
@@ -17,8 +32,16 @@ export default function Page() {
           </p>
         </div>
 
-        <div className="mt-6 md:mt-0 text-zinc-500 text-xs font-mono uppercase tracking-[0.2em]">
-          {MOCK_OCCURRENCES.length} Galerias disponíveis
+        <div className="mt-6 md:mt-0 flex items-center gap-4">
+          <span className="text-zinc-500 text-xs font-mono uppercase tracking-[0.2em]">
+            {MOCK_OCCURRENCES.length} Galerias disponíveis
+          </span>
+          <button
+            onClick={() => setIsOTPOpen(true)}
+            className="bg-volt text-black font-black text-[11px] uppercase tracking-widest px-5 py-2.5 rounded-lg hover:brightness-110 transition-all"
+          >
+            Entrar
+          </button>
         </div>
       </header>
 
