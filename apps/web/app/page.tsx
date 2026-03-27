@@ -61,7 +61,7 @@ export default function Page() {
                 </span>
                 <button
                   onClick={() => setIsOTPOpen(true)}
-                  className="bg-volt hover:bg-white text-black font-extrabold text-xs uppercase tracking-widest px-10 py-3.5 rounded-sm transition-[background-color] duration-[400ms] ease-in-out shadow-xl shadow-volt/20"
+                  className="bg-volt hover:bg-[#dbff33] text-black font-extrabold text-xs uppercase tracking-widest px-10 py-3.5 rounded-sm transition-[background-color,box-shadow,transform] duration-[240ms] ease-out shadow-[0_4px_20px_-4px_rgba(206,255,0,0.25)] hover:shadow-[0_0_36px_10px_rgba(206,255,0,0.35)] hover:-translate-y-px"
                 >
                   Entrar
                 </button>
