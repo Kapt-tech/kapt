@@ -1,0 +1,6 @@
+{
+    "name": "Kapt",
+    "remoteEnv": {
+        "PATH": "/home/antonio/.nvm/versions/node/v24.13.0/bin:${containerEnv:PATH}"
+    }
+}
