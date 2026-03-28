@@ -16,8 +16,8 @@ Kapt is a high-performance digital platform for the management, distribution, an
 ## 2. Core Features & AI Capabilities
 
 - **AI-Driven Automated Tagging:**
-    - **Facial Recognition:** High-precision identification of athletes across thousands of photos.
-    - **Equipment & Brand Detection:** Automatic identification of footwear (running shoes), apparel, and gear (bikes, helmets, watches).
+  - **Facial Recognition:** High-precision identification of athletes across thousands of photos.
+  - **Equipment & Brand Detection:** Automatic identification of footwear (running shoes), apparel, and gear (bikes, helmets, watches).
 - **"Wearing" State & Analytics:** Analysis of brand loyalty, equipment wear-and-tear levels, and color preferences to generate consumer profiles.
 - **Multisport Mosaic Interface:** Dynamic, responsive home screen utilizing high-density image grids for active "Coberturas."
 - **Secure OTP Authentication:** Passwordless, friction-free login flow via email/mobile.

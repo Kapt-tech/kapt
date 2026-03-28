@@ -45,7 +45,7 @@ related_issues: []
 
 ---
 
-## 🧠 Brainstorming & Design (<HARD-GATE>)
+## 🧠 Brainstorming & Design ([HARD-GATE])
 
 You MUST use this before any implementation. **Do NOT write code** until a design doc in `docs/specification/` is approved by the user.
 
