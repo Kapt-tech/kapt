@@ -9,6 +9,7 @@ services:
       postgres_db: kapt_local
     ports:
       - "5433:5432" # Host access (CachyOS) on 5433
+      - "3000:3000" # Next.js dev server (workspace shares this network)
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
