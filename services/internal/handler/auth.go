@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -30,11 +31,15 @@ func (h *Handler) RequestOTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 1. Generate a secure 6-digit numeric code
-	code := generateRandomCode(6)
+	code, err := generateRandomCode(6)
+	if err != nil {
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	// 2. Persist the OTP in Neon via SQLC (Set to expire in 10 minutes)
 	// The Upsert operation ensures that any previous code for this email is replaced
-	_, err := h.repo.UpsertOTP(r.Context(), repository.UpsertOTPParams{
+	_, err = h.repo.UpsertOTP(r.Context(), repository.UpsertOTPParams{
 		Email:     payload.Email,
 		Code:      code,
 		ExpiresAt: time.Now().Add(10 * time.Minute),
@@ -115,10 +120,9 @@ func (h *Handler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	claims := jwt.MapClaims{
-		"sub":   seeker.ID.String(),
-		"email": seeker.Email,
-		"iat":   time.Now().Unix(),
-		"exp":   time.Now().Add(24 * time.Hour).Unix(),
+		"sub": seeker.ID.String(),
+		"iat": time.Now().Unix(),
+		"exp": time.Now().Add(24 * time.Hour).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	signed, err := token.SignedString([]byte(secret))
@@ -132,19 +136,20 @@ func (h *Handler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"token": signed})
 }
 
-// generateRandomCode creates a cryptographically secure numeric string
-func generateRandomCode(max int) string {
+// generateRandomCode creates a cryptographically secure numeric string.
+// Returns an error if the OS entropy source fails — callers must not fall back
+// to a predictable value.
+func generateRandomCode(max int) (string, error) {
 	var table = [...]byte{'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'}
 	b := make([]byte, max)
 
-	// Use crypto/rand for secure generation instead of math/rand
-	n, _ := io.ReadAtLeast(rand.Reader, b, max)
-	if n != max {
-		return "123456" // Safety fallback in case of entropy failure
+	n, err := io.ReadAtLeast(rand.Reader, b, max)
+	if err != nil || n != max {
+		return "", fmt.Errorf("entropy failure: read %d of %d bytes: %w", n, max, err)
 	}
 
 	for i := 0; i < len(b); i++ {
 		b[i] = table[int(b[i])%len(table)]
 	}
-	return string(b)
+	return string(b), nil
 }
