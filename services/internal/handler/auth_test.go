@@ -4,10 +4,12 @@ import (
 	"bytes"
 	"context"
 	"database/sql"
+	"encoding/base64"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"strings"
 	"testing"
 	"time"
 
@@ -122,6 +124,65 @@ func TestVerifyOTP_MalformedBody_Returns400(t *testing.T) {
 
 	if w.Code != http.StatusBadRequest {
 		t.Fatalf("expected 400, got %d", w.Code)
+	}
+}
+
+func TestGenerateRandomCode_ReturnsCorrectLength(t *testing.T) {
+	code, err := generateRandomCode(6)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(code) != 6 {
+		t.Fatalf("expected 6 chars, got %d", len(code))
+	}
+	for _, c := range code {
+		if c < '0' || c > '9' {
+			t.Fatalf("expected numeric chars, got %q", c)
+		}
+	}
+}
+
+func TestVerifyOTP_JWTDoesNotContainEmail(t *testing.T) {
+	os.Setenv("JWT_SECRET", "test-secret-that-is-long-enough!!")
+	defer os.Unsetenv("JWT_SECRET")
+
+	h := NewHandler(&stubRepo{
+		otp: &repository.OtpCode{
+			ID:        1,
+			Email:     "seeker@kapt.com",
+			Code:      "123456",
+			ExpiresAt: time.Now().Add(5 * time.Minute),
+			Used:      sql.NullBool{Bool: false, Valid: true},
+		},
+	})
+
+	body, _ := json.Marshal(map[string]string{"email": "seeker@kapt.com", "code": "123456"})
+	req := httptest.NewRequest(http.MethodPost, "/auth/verify", bytes.NewReader(body))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	h.VerifyOTP(w, req)
+
+	var resp map[string]string
+	json.NewDecoder(w.Body).Decode(&resp)
+
+	// Decode JWT payload without verifying signature — just inspect claims
+	parts := strings.Split(resp["token"], ".")
+	if len(parts) != 3 {
+		t.Fatalf("expected 3 JWT parts, got %d", len(parts))
+	}
+	payload, err := base64.RawURLEncoding.DecodeString(parts[1])
+	if err != nil {
+		t.Fatalf("failed to decode JWT payload: %v", err)
+	}
+	var claims map[string]any
+	if err := json.Unmarshal(payload, &claims); err != nil {
+		t.Fatalf("failed to unmarshal claims: %v", err)
+	}
+	if _, ok := claims["email"]; ok {
+		t.Fatal("JWT must not contain the email claim (PII exposure)")
+	}
+	if _, ok := claims["sub"]; !ok {
+		t.Fatal("JWT must contain the sub claim")
 	}
 }
 
