@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "name": "Kapt PostgreSQL (Local)",
+      "driver": "PostgreSQL",
+      "server": "localhost",
+      "port": 5433,
+      "database": "kapt_local",
+      "username": "kapt_admin",
+      "password": "kapt_password",
+      "isActive": true
+    }
+  ]
+}
