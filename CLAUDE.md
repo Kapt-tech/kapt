@@ -79,7 +79,19 @@ You MUST use this before any implementation. **Do NOT write code** until a desig
 
 ## 🛠 Development Standards
 
-### 1. Commit Convention
+### 1. Database Migration Rigor ([HARD-GATE])
+
+Every change to a database table or creation of a new one MUST follow this sequence — no exceptions:
+
+1. Create a new numbered migration file in `services/sqlc/migration/` following the pattern `00000X_<name>.sql`
+2. Run `sqlc generate` from `services/` to update Go models and queries
+3. Include **both** the `.sql` migration file and the resulting generated Go code in the same commit
+
+**Never** perform database schema changes without a corresponding migration file.
+
+Migration file naming: `000001_init_schema.up.sql`, `000002_auth_schema.sql`, `000003_<next>.sql`, etc.
+
+### 2. Commit Convention
 
 Format: `<type>(<scope>): <description>` (feat, fix, docs, style, refactor, test, chore).
 
