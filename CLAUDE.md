@@ -39,13 +39,12 @@ related_issues: []
 
 ### 4. Branch Strategy & Environments
 
-Three long-lived branches map to three environments:
+Two long-lived branches:
 
 | Branch | Environment | Purpose |
 | --- | --- | --- |
-| `feat/<issue>-<desc>` | Local / Dev | Active feature development |
-| `develop` | Development | Integration of completed features |
-| `staging` | Staging | Pre-production QA & validation |
+| `feat/<issue>-<desc>` | Local dev | Active feature development |
+| `develop` | Development / Staging | Integration and pre-production validation |
 | `main` | Production | Live — never touched without explicit release request |
 
 ### 5. Pull Request & Commit Flow (Strict Protocol)
@@ -53,10 +52,9 @@ Three long-lived branches map to three environments:
 - **Test-Driven:** Every feature MUST include automated tests. Run them before opening a PR.
 - **Picking up an Issue:** Always create a feature branch from `develop` first:
   `git checkout develop && git checkout -b feat/<issue-number>-<short-description>`
-- **PR Target:** Feature branches → `develop`. Never open a PR directly to `main` or `staging`.
+- **PR Target:** Feature branches → `develop`. Never open a PR directly to `main`.
 - **docs: / chore: changes:** Commit directly to `develop` — no branch, no PR.
-- **Staging promotion:** `develop` → `staging` only on explicit user request.
-- **Production release:** `staging` → `main` only on explicit user request.
+- **Production release:** `develop` → `main` only on explicit user request.
 - **PR Process:** Use Conventional Commits, open PR, wait for user review before merging.
 - **Fork Sync:** After every merge to `develop` in `Kapt-tech/kapt`, sync the personal fork:
 
