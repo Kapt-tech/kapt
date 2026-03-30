@@ -6,8 +6,8 @@ ALTER TABLE photographers
     ADD COLUMN IF NOT EXISTS is_founder                  BOOLEAN        NOT NULL DEFAULT FALSE,
     ADD COLUMN IF NOT EXISTS is_pioneer                  BOOLEAN        NOT NULL DEFAULT FALSE,
     ADD COLUMN IF NOT EXISTS founder_deadline            TIMESTAMPTZ,
-    ADD COLUMN IF NOT EXISTS total_revenue_accumulated   NUMERIC(10,2)  NOT NULL DEFAULT 0.00,
-    ADD COLUMN IF NOT EXISTS commission_rate             NUMERIC(5,4)   NOT NULL DEFAULT 0.1500;
+    ADD COLUMN IF NOT EXISTS total_revenue_accumulated   NUMERIC(12,2)  NOT NULL DEFAULT 0.00,
+    ADD COLUMN IF NOT EXISTS commission_rate             NUMERIC(5,2)   NOT NULL DEFAULT 15.00;
 
 -- Seeker discount columns
 ALTER TABLE seekers
