@@ -10,6 +10,7 @@ import (
 	"database/sql"
 
 	"github.com/google/uuid"
+	decimal "github.com/shopspring/decimal"
 )
 
 const getPhotographerTier = `-- name: GetPhotographerTier :one
@@ -21,12 +22,12 @@ LIMIT 1
 `
 
 type GetPhotographerTierRow struct {
-	ID                      uuid.UUID    `json:"id"`
-	IsFounder               bool         `json:"is_founder"`
-	IsPioneer               bool         `json:"is_pioneer"`
-	FounderDeadline         sql.NullTime `json:"founder_deadline"`
-	TotalRevenueAccumulated string       `json:"total_revenue_accumulated"`
-	CommissionRate          string       `json:"commission_rate"`
+	ID                      uuid.UUID       `json:"id"`
+	IsFounder               bool            `json:"is_founder"`
+	IsPioneer               bool            `json:"is_pioneer"`
+	FounderDeadline         sql.NullTime    `json:"founder_deadline"`
+	TotalRevenueAccumulated decimal.Decimal `json:"total_revenue_accumulated"`
+	CommissionRate          decimal.Decimal `json:"commission_rate"`
 }
 
 // Fetches tier status and effective commission rate for payout calculation
@@ -53,16 +54,16 @@ RETURNING id, is_founder, is_pioneer, total_revenue_accumulated, commission_rate
 `
 
 type UpdatePhotographerRevenueParams struct {
-	ID                      uuid.UUID `json:"id"`
-	TotalRevenueAccumulated string    `json:"total_revenue_accumulated"`
+	ID                      uuid.UUID       `json:"id"`
+	TotalRevenueAccumulated decimal.Decimal `json:"total_revenue_accumulated"`
 }
 
 type UpdatePhotographerRevenueRow struct {
-	ID                      uuid.UUID `json:"id"`
-	IsFounder               bool      `json:"is_founder"`
-	IsPioneer               bool      `json:"is_pioneer"`
-	TotalRevenueAccumulated string    `json:"total_revenue_accumulated"`
-	CommissionRate          string    `json:"commission_rate"`
+	ID                      uuid.UUID       `json:"id"`
+	IsFounder               bool            `json:"is_founder"`
+	IsPioneer               bool            `json:"is_pioneer"`
+	TotalRevenueAccumulated decimal.Decimal `json:"total_revenue_accumulated"`
+	CommissionRate          decimal.Decimal `json:"commission_rate"`
 }
 
 // Accumulates revenue after each sale and returns the updated tier row
