@@ -13,19 +13,25 @@ import (
 const createSeeker = `-- name: CreateSeeker :one
 INSERT INTO seekers (email)
 VALUES ($1)
-RETURNING id, email, created_at
+RETURNING id, email, created_at, welcome_discount_used, last_facial_scan_at
 `
 
 // Registers a new seeker in the system
 func (q *Queries) CreateSeeker(ctx context.Context, email string) (Seeker, error) {
 	row := q.db.QueryRowContext(ctx, createSeeker, email)
 	var i Seeker
-	err := row.Scan(&i.ID, &i.Email, &i.CreatedAt)
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.CreatedAt,
+		&i.WelcomeDiscountUsed,
+		&i.LastFacialScanAt,
+	)
 	return i, err
 }
 
 const getSeekerByEmail = `-- name: GetSeekerByEmail :one
-SELECT id, email, created_at
+SELECT id, email, created_at, welcome_discount_used, last_facial_scan_at
 FROM seekers
 WHERE email = $1
 LIMIT 1
@@ -35,8 +41,24 @@ LIMIT 1
 func (q *Queries) GetSeekerByEmail(ctx context.Context, email string) (Seeker, error) {
 	row := q.db.QueryRowContext(ctx, getSeekerByEmail, email)
 	var i Seeker
-	err := row.Scan(&i.ID, &i.Email, &i.CreatedAt)
+	err := row.Scan(
+		&i.ID,
+		&i.Email,
+		&i.CreatedAt,
+		&i.WelcomeDiscountUsed,
+		&i.LastFacialScanAt,
+	)
 	return i, err
+}
+
+const markOTPUsed = `-- name: MarkOTPUsed :exec
+UPDATE otp_codes SET used = true WHERE id = $1
+`
+
+// Marks an OTP code as consumed to prevent replay attacks
+func (q *Queries) MarkOTPUsed(ctx context.Context, id int32) error {
+	_, err := q.db.ExecContext(ctx, markOTPUsed, id)
+	return err
 }
 
 const upsertOTP = `-- name: UpsertOTP :one
@@ -64,16 +86,6 @@ func (q *Queries) UpsertOTP(ctx context.Context, arg UpsertOTPParams) (OtpCode, 
 		&i.CreatedAt,
 	)
 	return i, err
-}
-
-const markOTPUsed = `-- name: MarkOTPUsed :exec
-UPDATE otp_codes SET used = true WHERE id = $1
-`
-
-// Marks an OTP code as consumed to prevent replay attacks
-func (q *Queries) MarkOTPUsed(ctx context.Context, id int32) error {
-	_, err := q.db.ExecContext(ctx, markOTPUsed, id)
-	return err
 }
 
 const verifyOTP = `-- name: VerifyOTP :one

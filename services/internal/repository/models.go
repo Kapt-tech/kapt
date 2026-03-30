@@ -35,17 +35,24 @@ type OtpCode struct {
 }
 
 type Photographer struct {
-	ID              uuid.UUID      `json:"id"`
-	Name            string         `json:"name"`
-	Email           string         `json:"email"`
-	Bio             sql.NullString `json:"bio"`
-	StripeAccountID sql.NullString `json:"stripe_account_id"`
-	CreatedAt       time.Time      `json:"created_at"`
-	UpdatedAt       time.Time      `json:"updated_at"`
+	ID                      uuid.UUID      `json:"id"`
+	Name                    string         `json:"name"`
+	Email                   string         `json:"email"`
+	Bio                     sql.NullString `json:"bio"`
+	StripeAccountID         sql.NullString `json:"stripe_account_id"`
+	CreatedAt               time.Time      `json:"created_at"`
+	UpdatedAt               time.Time      `json:"updated_at"`
+	IsFounder               bool           `json:"is_founder"`
+	IsPioneer               bool           `json:"is_pioneer"`
+	FounderDeadline         sql.NullTime   `json:"founder_deadline"`
+	TotalRevenueAccumulated string         `json:"total_revenue_accumulated"`
+	CommissionRate          string         `json:"commission_rate"`
 }
 
 type Seeker struct {
-	ID        uuid.UUID `json:"id"`
-	Email     string    `json:"email"`
-	CreatedAt time.Time `json:"created_at"`
+	ID                  uuid.UUID    `json:"id"`
+	Email               string       `json:"email"`
+	CreatedAt           time.Time    `json:"created_at"`
+	WelcomeDiscountUsed bool         `json:"welcome_discount_used"`
+	LastFacialScanAt    sql.NullTime `json:"last_facial_scan_at"`
 }

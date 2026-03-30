@@ -45,6 +45,12 @@ func (s *stubRepo) CreateSeeker(_ context.Context, email string) (repository.See
 	return sk, nil
 }
 
+func (s *stubRepo) GetPhotographerTier(_ context.Context, _ uuid.UUID) (repository.GetPhotographerTierRow, error) {
+	return repository.GetPhotographerTierRow{}, nil
+}
+func (s *stubRepo) UpdatePhotographerRevenue(_ context.Context, _ repository.UpdatePhotographerRevenueParams) (repository.UpdatePhotographerRevenueRow, error) {
+	return repository.UpdatePhotographerRevenueRow{}, nil
+}
 func (s *stubRepo) UpsertOTP(_ context.Context, _ repository.UpsertOTPParams) (repository.OtpCode, error) {
 	return repository.OtpCode{}, nil
 }
