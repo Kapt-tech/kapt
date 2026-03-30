@@ -109,7 +109,7 @@ func (q *Queries) CreateOccurrence(ctx context.Context, arg CreateOccurrencePara
 const createPhotographer = `-- name: CreatePhotographer :one
 INSERT INTO photographers (name, email, bio, stripe_account_id)
 VALUES ($1, $2, $3, $4)
-RETURNING id, name, email, bio, stripe_account_id, created_at, updated_at
+RETURNING id, name, email, bio, stripe_account_id, created_at, updated_at, is_founder, is_pioneer, founder_deadline, total_revenue_accumulated, commission_rate
 `
 
 type CreatePhotographerParams struct {
@@ -135,6 +135,11 @@ func (q *Queries) CreatePhotographer(ctx context.Context, arg CreatePhotographer
 		&i.StripeAccountID,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.IsFounder,
+		&i.IsPioneer,
+		&i.FounderDeadline,
+		&i.TotalRevenueAccumulated,
+		&i.CommissionRate,
 	)
 	return i, err
 }
