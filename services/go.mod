@@ -7,6 +7,7 @@ require (
 	github.com/lib/pq v1.11.2
 )
 
-require github.com/golang-jwt/jwt/v5 v5.3.1
-
-require github.com/shopspring/decimal v1.4.0 // indirect
+require (
+	github.com/golang-jwt/jwt/v5 v5.3.1
+	github.com/shopspring/decimal v1.4.0
+)
