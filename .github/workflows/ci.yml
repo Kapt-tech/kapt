@@ -43,8 +43,7 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        working-directory: apps/web
+      - name: Install dependencies (root — resolves monorepo hoisting)
         run: npm install
 
       - name: Build
