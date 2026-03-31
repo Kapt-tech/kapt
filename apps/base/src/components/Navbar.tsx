@@ -2,7 +2,6 @@
 
 export function Navbar() {
     const navLinks = [
-        { name: 'Início', href: '#' },
         { name: 'Coberturas', href: '#' },
         { name: 'Blog', href: '#' },
         { name: 'Sobre', href: '#' }
