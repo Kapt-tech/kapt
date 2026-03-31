@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	decimal "github.com/shopspring/decimal"
 )
 
 type Occurrence struct {
@@ -17,7 +18,7 @@ type Occurrence struct {
 	Title          string         `json:"title"`
 	Description    sql.NullString `json:"description"`
 	LocationName   string         `json:"location_name"`
-	LocationGeom   string         `json:"location_geom"`
+	LocationGeom   interface{}    `json:"location_geom"`
 	StartTime      time.Time      `json:"start_time"`
 	EndTime        time.Time      `json:"end_time"`
 	Status         string         `json:"status"`
@@ -35,18 +36,18 @@ type OtpCode struct {
 }
 
 type Photographer struct {
-	ID                      uuid.UUID      `json:"id"`
-	Name                    string         `json:"name"`
-	Email                   string         `json:"email"`
-	Bio                     sql.NullString `json:"bio"`
-	StripeAccountID         sql.NullString `json:"stripe_account_id"`
-	CreatedAt               time.Time      `json:"created_at"`
-	UpdatedAt               time.Time      `json:"updated_at"`
-	IsFounder               bool           `json:"is_founder"`
-	IsPioneer               bool           `json:"is_pioneer"`
-	FounderDeadline         sql.NullTime   `json:"founder_deadline"`
-	TotalRevenueAccumulated string         `json:"total_revenue_accumulated"`
-	CommissionRate          string         `json:"commission_rate"`
+	ID                      uuid.UUID       `json:"id"`
+	Name                    string          `json:"name"`
+	Email                   string          `json:"email"`
+	Bio                     sql.NullString  `json:"bio"`
+	StripeAccountID         sql.NullString  `json:"stripe_account_id"`
+	CreatedAt               time.Time       `json:"created_at"`
+	UpdatedAt               time.Time       `json:"updated_at"`
+	IsFounder               bool            `json:"is_founder"`
+	IsPioneer               bool            `json:"is_pioneer"`
+	FounderDeadline         sql.NullTime    `json:"founder_deadline"`
+	TotalRevenueAccumulated decimal.Decimal `json:"total_revenue_accumulated"`
+	CommissionRate          decimal.Decimal `json:"commission_rate"`
 }
 
 type Seeker struct {
