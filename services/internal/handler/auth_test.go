@@ -92,7 +92,9 @@ func TestVerifyOTP_ValidCode_ReturnsJWT(t *testing.T) {
 		t.Fatalf("expected 200, got %d — body: %s", w.Code, w.Body.String())
 	}
 	var resp map[string]string
-	json.NewDecoder(w.Body).Decode(&resp)
+	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
+		t.Fatalf("failed to decode response: %v", err)
+	}
 	if resp["token"] == "" {
 		t.Fatal("expected non-empty token in response")
 	}
@@ -169,7 +171,9 @@ func TestVerifyOTP_JWTDoesNotContainEmail(t *testing.T) {
 	h.VerifyOTP(w, req)
 
 	var resp map[string]string
-	json.NewDecoder(w.Body).Decode(&resp)
+	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
+		t.Fatalf("failed to decode response: %v", err)
+	}
 
 	// Decode JWT payload without verifying signature — just inspect claims
 	parts := strings.Split(resp["token"], ".")

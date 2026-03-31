@@ -1,2 +1,2 @@
-/* eslint-env commonjs */
+/* global module */
 module.exports = 'test-file-stub';
