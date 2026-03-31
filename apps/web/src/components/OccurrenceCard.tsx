@@ -31,6 +31,7 @@ export function OccurrenceCard({
                 )}
                 {images.slice(0, 4).map((img, i) => (
                     <div key={i} className="bg-zinc-800 w-full h-full overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={img} alt="" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                     </div>
                 ))}

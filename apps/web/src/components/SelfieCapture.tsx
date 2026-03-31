@@ -140,7 +140,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                     </h2>
                     {step === 'camera' && !permissionDenied && (
                         <p className="text-zinc-400 text-sm mt-2">
-                            Posicione seu rosto no centro e clique em "Tirar foto".
+                            Posicione seu rosto no centro e clique em &quot;Tirar foto&quot;.
                         </p>
                     )}
                     {step === 'consent' && (
@@ -185,6 +185,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                 {/* Step: consent */}
                 {step === 'consent' && capturedPreview && (
                     <div className="flex flex-col gap-5">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={capturedPreview}
                             alt="Sua selfie capturada"
