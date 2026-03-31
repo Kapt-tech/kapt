@@ -26,6 +26,12 @@ jobs:
         working-directory: services
         run: go mod download
 
+      - name: Lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          working-directory: services
+
       - name: Build
         working-directory: services
         run: go build ./...
@@ -47,6 +53,10 @@ jobs:
 
       - name: Install dependencies (root — resolves monorepo hoisting)
         run: npm install
+
+      - name: Lint
+        working-directory: apps/web
+        run: npm run lint
 
       - name: Build
         working-directory: apps/web
