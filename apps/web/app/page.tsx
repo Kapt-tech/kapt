@@ -56,7 +56,7 @@ export default function Page() {
           {/* Bottom Row: Description and Contextual Info */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between w-full">
             <p className="text-zinc-200 text-lg md:text-xl font-semibold tracking-tight max-w-lg">
-              Galerias oficiais de eventos multiesportivos.
+              Galerias de eventos multiesportivos.
             </p>
 
             <div className="flex flex-col items-end gap-4 mt-8 md:mt-0">
