@@ -2,7 +2,7 @@ import "./globals.css"; // This MUST be the first import
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kapt / Eventos",
+  title: "Kapt | Coberturas",
   description: "Plataforma Kapt",
 };
 
