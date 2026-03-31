@@ -46,7 +46,7 @@ export default function Page() {
 
           {/* ALIGNMENT FIX: Description is now strictly within the same right-aligned flex column */}
           <p className="text-zinc-400 text-xs md:text-sm font-semibold tracking-widest uppercase mb-1">
-            Galerias oficiais de eventos multiesportivos.
+            Galerias de eventos multiesportivos.
           </p>
 
           <span className="text-3xl md:text-5xl font-medium tracking-[0.25em] text-white uppercase font-mono leading-none mb-6">
