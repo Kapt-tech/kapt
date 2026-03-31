@@ -1,0 +1,92 @@
+name: Move issue to Ready for Prod on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+
+jobs:
+  move-issue:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract linked issue number
+        id: extract
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          ISSUE=$(echo "$BODY" | grep -oP '(?i)closes\s+#\K[0-9]+' | head -1)
+          echo "issue_number=$ISSUE" >> $GITHUB_OUTPUT
+
+      - name: Get issue node ID
+        id: issue_node
+        if: steps.extract.outputs.issue_number != ''
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          NODE_ID=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                issue(number: $number) {
+                  id
+                }
+              }
+            }' \
+            -f owner="${{ github.repository_owner }}" \
+            -f repo="${{ github.event.repository.name }}" \
+            -F number=${{ steps.extract.outputs.issue_number }} \
+            --jq '.data.repository.issue.id')
+          echo "node_id=$NODE_ID" >> $GITHUB_OUTPUT
+
+      - name: Get project item ID
+        id: project_item
+        if: steps.issue_node.outputs.node_id != ''
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          ITEM_ID=$(gh api graphql -f query='
+            query($projectId: ID!, $issueId: ID!) {
+              node(id: $projectId) {
+                ... on ProjectV2 {
+                  items(first: 100) {
+                    nodes {
+                      id
+                      content {
+                        ... on Issue {
+                          id
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }' \
+            -f projectId="PVT_kwDOD9TIa84BRr3K" \
+            -f issueId="${{ steps.issue_node.outputs.node_id }}" \
+            --jq --arg issueId "${{ steps.issue_node.outputs.node_id }}" \
+            '.data.node.items.nodes[] | select(.content.id == $issueId) | .id')
+          echo "item_id=$ITEM_ID" >> $GITHUB_OUTPUT
+
+      - name: Move to Ready for Prod
+        if: steps.project_item.outputs.item_id != ''
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          gh api graphql -f mutation='
+            mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+              updateProjectV2ItemFieldValue(input: {
+                projectId: $projectId
+                itemId: $itemId
+                fieldId: $fieldId
+                value: { singleSelectOptionId: $optionId }
+              }) {
+                projectV2Item {
+                  id
+                }
+              }
+            }' \
+            -f projectId="PVT_kwDOD9TIa84BRr3K" \
+            -f itemId="${{ steps.project_item.outputs.item_id }}" \
+            -f fieldId="PVTSSF_lADOD9TIa84BRr3Kzg_cPec" \
+            -f optionId="72ad4a86"
