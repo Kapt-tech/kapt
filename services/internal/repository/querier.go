@@ -21,6 +21,7 @@ type Querier interface {
 	// Retrieves a seeker by their unique email address
 	GetSeekerByEmail(ctx context.Context, email string) (Seeker, error)
 	ListOccurrencesByPhotographer(ctx context.Context, photographerID uuid.UUID) ([]ListOccurrencesByPhotographerRow, error)
+	ListPhotographers(ctx context.Context) ([]Photographer, error)
 	// Marks an OTP code as consumed to prevent replay attacks
 	MarkOTPUsed(ctx context.Context, id int32) error
 	// Accumulates revenue after each sale and returns the updated tier row
