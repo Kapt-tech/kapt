@@ -21,6 +21,17 @@ When the user signals completion of a task or mentions an Issue ID, proceed IMME
    - **Title:** Match the Issue title or the commit message.
    - **Body:** **CRITICAL:** You MUST include the string "Closes #[ID]" in the body. This is required by the `move-to-ready.yml` action to trigger the automatic Kanban transition to 'Done'.
 
-6. **Action:** - Execute the entire flow autonomously.
+6. **Fork Sync (MANDATORY after every push):**
+   - After every push to `upstream` (Kapt-tech/kapt), ALWAYS also push to `origin` (antonioroque200OK/kapt):
+
+     ```bash
+     git push origin <branch-name>
+     ```
+
+   - **CRITICAL:** Explicitly confirm to the user with the message:
+     > ✅ Both repos are in sync — `Kapt-tech/kapt` and `antonioroque200OK/kapt` are identical at `<commit-hash>`.
+
+7. **Action:**
+   - Execute the entire flow autonomously.
    - Do not ask for confirmation on titles, syncs, or branch names.
    - Report the final PR URL to the user.
