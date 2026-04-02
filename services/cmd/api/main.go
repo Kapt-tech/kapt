@@ -44,11 +44,15 @@ func main() {
 		if err := conn.QueryRowContext(r.Context(), "SELECT 1").Scan(&n); err != nil {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusServiceUnavailable)
-			json.NewEncoder(w).Encode(map[string]string{"status": "error"})
+			if encErr := json.NewEncoder(w).Encode(map[string]string{"status": "error"}); encErr != nil {
+				log.Printf("health encode error: %v", encErr)
+			}
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+		if encErr := json.NewEncoder(w).Encode(map[string]string{"status": "ok"}); encErr != nil {
+			log.Printf("health encode error: %v", encErr)
+		}
 	})
 
 	mux.HandleFunc("POST /auth/request", h.RequestOTP)

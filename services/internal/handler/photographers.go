@@ -80,7 +80,9 @@ func (h *Handler) CreatePhotographer(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil || payload.Name == "" || payload.Email == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "name and email are required"})
+		if err := json.NewEncoder(w).Encode(map[string]string{"error": "name and email are required"}); err != nil {
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+		}
 		return
 	}
 
