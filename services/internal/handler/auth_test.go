@@ -66,6 +66,9 @@ func (s *stubRepo) GetOccurrenceBySlug(_ context.Context, _ string) (repository.
 func (s *stubRepo) ListOccurrencesByPhotographer(_ context.Context, _ uuid.UUID) ([]repository.ListOccurrencesByPhotographerRow, error) {
 	return nil, nil
 }
+func (s *stubRepo) ListPhotographers(_ context.Context) ([]repository.Photographer, error) {
+	return nil, nil
+}
 
 func TestVerifyOTP_ValidCode_ReturnsJWT(t *testing.T) {
 	os.Setenv("JWT_SECRET", "test-secret-that-is-long-enough!!")
