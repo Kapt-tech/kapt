@@ -18,6 +18,19 @@ related_issues: []
 - **Kaptured:** A photo successfully processed and identified.
 - **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação."
 
+## 🎨 Design System & UI Standards
+
+- **Figma Source of Truth**: [Kapt Design Style Guide & Library](https://www.figma.com/make/eFwYWC0REwrqiOKsT2ulOI/Design-Style-Guide-and-Library)
+- **Core Tokens**:
+  - `actionVolt`: `#CEFF00` (Primary accent color)
+  - `asphaltBlack`: `#0A0A0A` (Main background color)
+  - `pavementGray`: `#262626` (Secondary background and card color)
+- **Typography**:
+  - **Family**: `JetBrains Mono` strictly for navigation, technical labels, and numeric data.
+- **Strict UI Constraints**:
+  - **Hero Proportions**: The "COBERTURAS" header must maintain balanced, proportional sizing relative to the logo. Do NOT allow automated scaling to become oversized or desproportional.
+  - **Precedence**: This Style Guide and its associated tokens always override automated AI design inferences.
+
 ## 🚀 Business Rules & Core Logic (The "Kapt Constitution")
 
 ### 1. Privacy & LGPD Compliance
