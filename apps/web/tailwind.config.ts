@@ -9,12 +9,12 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                volt: "#CEFF00",      // action-volt
-                asphalt: "#0A0A0A",   // asphalt-black
-                pavement: "#262626",  // pavement-gray
+                actionVolt: "#CEFF00",
+                asphaltBlack: "#0A0A0A",
+                pavementGray: "#262626",
             },
             fontFamily: {
-                mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+                mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
             },
             borderRadius: {
                 card: "16px",
