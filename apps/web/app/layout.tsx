@@ -1,5 +1,7 @@
 import "./globals.css"; // This MUST be the first import
 import type { Metadata } from "next";
+import { Header } from "@/components/Header";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Kapt | Coberturas",
@@ -17,7 +19,10 @@ export default function RootLayout({
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
       </head>
       <body className="antialiased bg-black text-white" suppressHydrationWarning>
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

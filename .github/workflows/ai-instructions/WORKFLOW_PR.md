@@ -4,10 +4,10 @@ When the user signals completion of a task or mentions an Issue ID, proceed IMME
 
 1. **Pre-Work Sync (Keep Repos Equal):**
    - Before branching, run `gh repo sync antonioroque200OK/kapt` to sync the fork with the upstream repository via GitHub API.
-   - Run `git checkout main` followed by `git pull origin main` to ensure the local environment is identical to the newly synced fork.
+   - Run `git checkout develop` followed by `git pull origin develop` to ensure the local environment is identical to the newly synced fork.
 
 2. **Branching:**
-   - Create a new branch named `feature/issue-[ID]` or `fix/issue-[ID]` based on the updated `main`.
+   - Create a new branch named `feature/issue-[ID]` or `fix/issue-[ID]` based on the updated `develop`.
 
 3. **Staging & Commit:**
    - Stage all changes (`git add .`).
@@ -35,3 +35,9 @@ When the user signals completion of a task or mentions an Issue ID, proceed IMME
    - Execute the entire flow autonomously.
    - Do not ask for confirmation on titles, syncs, or branch names.
    - Report the final PR URL to the user.
+
+8. **Post-Merge Cleanup (MANDATORY):**
+   - When the user confirms the PR has been merged into `develop`, autonomously delete the branch to maintain a clean slate.
+   - Switch back to the base branch: `git checkout develop`
+   - Delete the local branch: `git branch -D <branch-name>`
+   - Delete the remote forks: `git push origin --delete <branch-name>` and `git push upstream --delete <branch-name>`
