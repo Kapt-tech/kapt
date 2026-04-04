@@ -13,7 +13,7 @@ export function Header() {
         {/* Left Side: Brand Identity and Tagline */}
         <div className="flex flex-col gap-1">
           <Link href="/" className="group">
-            <h1 className="text-volt text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none italic group-hover:text-volt/90 transition-all duration-300">
+            <h1 className="text-actionVolt text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none italic group-hover:text-actionVolt/90 transition-all duration-300">
               KAPT
             </h1>
           </Link>
@@ -40,7 +40,7 @@ export function Header() {
               </span>
               <button 
                 onClick={openAuth}
-                className="bg-volt text-black text-[10px] md:text-xs font-black px-8 py-3 rounded-md uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,255,0,0.4)] hover:shadow-[0_0_25px_rgba(212,255,0,0.6)]"
+                className="bg-actionVolt text-black text-[10px] md:text-xs font-black px-8 py-3 rounded-md uppercase tracking-widest hover:brightness-110 transition-all shadow-[0_0_15px_rgba(212,255,0,0.4)] hover:shadow-[0_0_25px_rgba(212,255,0,0.6)]"
               >
                 Entrar
               </button>

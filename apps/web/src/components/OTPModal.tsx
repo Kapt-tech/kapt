@@ -72,7 +72,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="otp-modal-title"
-                className="relative w-full max-w-sm mx-4 bg-pavement border border-white/10 rounded-card p-8 shadow-2xl"
+                className="relative w-full max-w-sm mx-4 bg-pavementGray border border-white/10 rounded-card p-8 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close */}
@@ -108,7 +108,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                             placeholder="WhatsApp ou e-mail"
                             required
                             disabled={status === 'loading'}
-                            className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-volt/60 transition-colors disabled:opacity-50"
+                            className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-actionVolt/60 transition-colors disabled:opacity-50"
                         />
                         {status === 'error' && (
                             <p role="alert" className="text-red-400 text-xs">{errorMsg}</p>
@@ -116,7 +116,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                         <button
                             type="submit"
                             disabled={status === 'loading' || !contact.trim()}
-                            className="flex items-center justify-center gap-2 w-full bg-volt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center justify-center gap-2 w-full bg-actionVolt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {status === 'loading' ? (
                                 <><Loader2 size={14} className="animate-spin" /> Enviando...</>
@@ -130,7 +130,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                     <form onSubmit={handleVerifyOTP} className="flex flex-col gap-4">
                         {status === 'success' ? (
                             <div className="flex flex-col items-center gap-3 py-4">
-                                <CheckCircle2 size={40} className="text-volt" />
+                                <CheckCircle2 size={40} className="text-actionVolt" />
                                 <p className="text-white font-bold text-sm">Identidade confirmada!</p>
                             </div>
                         ) : (
@@ -146,7 +146,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                                     placeholder="0000"
                                     required
                                     disabled={status === 'loading'}
-                                    className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-3 text-white text-center text-2xl font-mono tracking-[0.5em] placeholder:text-zinc-600 focus:outline-none focus:border-volt/60 transition-colors disabled:opacity-50"
+                                    className="w-full bg-neutral-800 border border-white/10 rounded-lg px-4 py-3 text-white text-center text-2xl font-mono tracking-[0.5em] placeholder:text-zinc-600 focus:outline-none focus:border-actionVolt/60 transition-colors disabled:opacity-50"
                                 />
                                 {status === 'error' && (
                                     <p role="alert" className="text-red-400 text-xs">{errorMsg}</p>
@@ -154,7 +154,7 @@ export const OTPModal = ({ isOpen, onClose, onSuccess }: OTPModalProps) => {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading' || code.length !== 4}
-                                    className="flex items-center justify-center gap-2 w-full bg-volt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex items-center justify-center gap-2 w-full bg-actionVolt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {status === 'loading' ? (
                                         <><Loader2 size={14} className="animate-spin" /> Verificando...</>
