@@ -3,9 +3,19 @@
 import Link from "next/link";
 import { Navbar } from "./Navbar";
 import { useAuth } from "@/context/AuthContext";
+import { Title } from "./Title";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const { openAuth } = useAuth();
+  const pathname = usePathname();
+
+  let pageTitle = "Coberturas";
+  if (pathname?.includes("/sobre")) {
+    pageTitle = "Sobre";
+  } else if (pathname?.includes("/blog")) {
+    pageTitle = "Blog";
+  }
 
   return (
     <header className="mb-12 max-w-7xl mx-auto px-6 border-b border-white/10 pb-8 pt-12">
@@ -30,9 +40,7 @@ export function Header() {
 
           {/* Hero context integrated in Header for global consistency */}
           <div className="flex flex-row items-center gap-12">
-            <h2 className="text-white text-2xl md:text-4xl font-medium tracking-[0.4em] uppercase leading-none opacity-90">
-              Coberturas
-            </h2>
+            <Title text={pageTitle} />
 
             <div className="flex items-center gap-6">
               <span className="text-white text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] opacity-60 hidden sm:inline">
