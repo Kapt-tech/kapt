@@ -10,6 +10,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+import { Footer } from "@/components/Footer";
+
 export const metadata: Metadata = {
   title: "Kapt | Coberturas",
   description: "Plataforma Kapt",
@@ -25,10 +27,13 @@ export default function RootLayout({
       <head>
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
       </head>
-      <body className={`antialiased bg-asphaltBlack text-white ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className={`antialiased bg-asphaltBlack text-white min-h-screen flex flex-col ${jetbrainsMono.variable}`} suppressHydrationWarning>
         <AuthProvider>
           <Header />
-          {children}
+          <main className="flex-1 w-full">
+            {children}
+          </main>
+          <Footer />
         </AuthProvider>
       </body>
     </html>
