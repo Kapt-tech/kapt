@@ -13,5 +13,12 @@
     "postCreateCommand": "npm install",
     "remoteEnv": {
         "NEXT_PUBLIC_API_URL": "http://localhost:8080"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "github.vscode-github-actions"
+            ]
+        }
     }
 }
