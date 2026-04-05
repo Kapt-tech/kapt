@@ -166,3 +166,11 @@ Issues MUST include: **Objective**, **Tasks for Claude Code**, and **Related Spe
 
 *Use this to start coding a specific issue from the "To Do" column.*
 > "Read **@CLAUDE.md** and **[MENTION_SPECS_WITH_@]**. Use `gh issue view [ID]` to fetch requirements and create a step-by-step implementation plan for **[FEATURE_NAME]**. Do not write any code until I approve the plan."
+
+---
+
+## 🗺️ System Architecture Reference
+
+For all deep technical schemas, entity relationships, and backend sequence flows, consult [docs/specification/tech-system-design.md](docs/specification/tech-system-design.md).
+
+This file serves as the authoritative source for system architecture documentation, including C4 container diagrams, ERDs, and sequence diagrams for key workflows in the Kapt platform.
