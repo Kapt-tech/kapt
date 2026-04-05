@@ -1,0 +1,16 @@
+import { Title } from "./Title";
+import { HeaderActions } from "./HeaderActions";
+
+interface HeaderHeroProps {
+  pageTitle: string;
+  onAuthClick: () => void;
+}
+
+export function HeaderHero({ pageTitle, onAuthClick }: HeaderHeroProps) {
+  return (
+    <div className="flex flex-row items-center gap-12">
+      <Title text={pageTitle} />
+      <HeaderActions onAuthClick={onAuthClick} />
+    </div>
+  );
+}
