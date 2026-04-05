@@ -1,156 +1,175 @@
 ---
-title: "System Design & Architecture"
-description: "Technical specification documenting the system design, container architecture, data models, and key workflows for the Kapt platform."
+title: "Kapt System Design & Architecture"
 type: "tech"
-epic: "platform"
 status: "approved"
-related_issues: []
 ---
 
-# System Design & Architecture
+# Kapt System Design & Architecture
 
-This document outlines the high-level system design and architecture of the Kapt platform, including container interactions, data relationships, and key workflows.
+This document outlines the high-level system architecture of the Kapt platform, focusing on the core components, data relationships, and key workflows. All designs adhere to the Kapt domain rules, ensuring privacy compliance, DaaS monetization, and zero-click discovery for registered seekers.
 
 ## Container Architecture (C4 Level 2)
 
-The following diagram illustrates the container-level architecture of the Kapt system, showing the main containers and their interactions.
+The following diagram illustrates the container-level interactions within the Kapt ecosystem. The system is designed for scalability, with clear separation of concerns between user-facing interfaces, business logic, data storage, and AI processing.
 
 ```mermaid
-C4Container
-    title Container Diagram for Kapt Platform
+container C4Context {
+    Person[Photographer] --> Frontend : Uploads photos
+    Person[Registered Seeker] --> Frontend : Discovers photos
+    Person[Promoter] --> Frontend : Manages occurrences
 
-    Person(seeker, "Seeker", "End user accessing the platform via web/mobile")
-    Person(photographer, "Photographer", "Professional photographer uploading event photos")
-
-    Container_Boundary(c1, "Kapt Platform") {
-        Container(frontend, "Next.js Frontend", "React/Next.js", "Provides web interface for seekers and photographers")
-        Container(backend, "Go Backend", "Go/Gin", "Handles API requests, business logic, and data persistence")
-        Container(ai_service, "AI Service", "Python/FastAPI", "Processes photos for identification and analysis")
+    System_Boundary(kapt_platform, "Kapt Platform") {
+        Container(frontend, "Kapt Frontend", "Next.js", "Provides web interface for seekers, photographers, and promoters")
+        Container(backend, "Kapt Backend", "Go", "Handles business logic, authentication, and API orchestration")
+        ContainerDb(database, "PostgreSQL Database", "PostgreSQL", "Stores occurrences, seekers, photographers, and photo metadata")
+        Container(storage, "S3 Storage", "Object Storage", "Stores photo files and B-roll content")
+        Container(ai_service, "AI Identification Service", "AI/ML Service", "Processes photos for identification and gear detection")
     }
 
-    Container_Boundary(c2, "External Systems") {
-        ContainerDb(postgres, "PostgreSQL Database", "PostgreSQL", "Stores user data, occurrences, photos metadata")
-        ContainerDb(s3, "S3 Storage", "AWS S3", "Stores photo files and assets")
-    }
-
-    Rel(seeker, frontend, "Uses", "HTTPS")
-    Rel(photographer, frontend, "Uploads photos", "HTTPS")
-    Rel(frontend, backend, "API calls", "REST/GraphQL")
-    Rel(backend, postgres, "Reads/Writes data", "SQL")
-    Rel(backend, s3, "Stores/Retrieves files", "HTTPS")
-    Rel(backend, ai_service, "Sends photos for processing", "REST")
-    Rel(ai_service, backend, "Returns identification results", "REST")
-    Rel(ai_service, s3, "Accesses photo files", "HTTPS")
+    frontend --> backend : HTTP/REST
+    backend --> database : SQL queries
+    backend --> storage : File uploads/downloads
+    backend --> ai_service : Photo analysis requests
+    ai_service --> backend : Identification results
+}
 ```
+
+### Container Descriptions
+
+- **Kapt Frontend (Next.js)**: The user-facing web application built with Next.js, providing interfaces for photographers to upload photos, registered seekers to access their private galleries, and promoters to manage occurrences. Strictly enforces PT-BR localization and LGPD compliance.
+- **Kapt Backend (Go)**: The core API server written in Go, implementing business rules such as OTP verification, photo processing orchestration, and DaaS data extraction. Ensures zero-click discovery for registered seekers.
+- **PostgreSQL Database**: Relational database storing all domain entities including occurrences, seekers, photographers, and photo metadata. Supports complex queries for photo identification and monetization analytics.
+- **S3 Storage**: Object storage system for persisting photo files and B-roll content. Provides scalable, secure storage with access controls aligned to privacy rules.
+- **AI Identification Service**: Specialized service for processing uploaded photos, performing facial recognition for Kaptured photos, and gear detection for DaaS insights. Only processes photos after LGPD opt-in verification.
 
 ## Entity-Relationship Diagram (ERD)
 
-The ERD below shows the key entities and their relationships in the Kapt system.
+The ERD below maps the core domain entities and their relationships, derived from the Kapt glossary and business rules. All relationships enforce privacy constraints and support the DaaS monetization model.
 
 ```mermaid
 erDiagram
-    occurrence ||--o{ photo : "has"
-    occurrence ||--o{ seeker : "attends"
-    occurrence ||--o{ photographer : "covers"
-    seeker ||--o{ photo : "appears_in"
-    photographer ||--o{ photo : "captures"
-    photo ||--o{ seeker : "identifies"
-    seeker {
-        int id PK
-        string name
-        string email
-        string biometric_data
-        boolean lgpd_opt_in
-        datetime created_at
-    }
-    occurrence {
-        int id PK
-        string name
+    OCCURRENCE ||--o{ PHOTO : contains
+    PHOTOGRAPHER ||--o{ OCCURRENCE : organizes
+    SEEKER ||--o{ PHOTO : appears_in
+    PHOTOGRAPHER ||--o{ PHOTO : supplies
+    SEEKER ||--|| REGISTERED_SEEKER : extends
+    PHOTO ||--|| KAPTURED : becomes
+    PHOTO ||--|| B_ROLL : becomes
+
+    OCCURRENCE {
+        uuid id PK
+        string title
         string description
-        datetime event_date
-        string location
-        int promoter_id FK
-    }
-    photographer {
-        int id PK
-        string name
-        string email
-        string credentials
+        string location_name
+        string location_geom
+        datetime start_time
+        datetime end_time
+        string status
+        string slug
         datetime created_at
     }
-    photo {
-        int id PK
-        string filename
-        string s3_url
-        int occurrence_id FK
-        int photographer_id FK
-        json metadata
-        boolean is_kaptured
+
+    SEEKER {
+        uuid id PK
+        string email
+        datetime created_at
+    }
+
+    REGISTERED_SEEKER {
+        uuid id FK
+        string biometric_data
+        bool lgpd_opt_in
+        datetime registered_at
+    }
+
+    PHOTOGRAPHER {
+        uuid id PK
+        string name
+        string email
+        string bio
+        string stripe_account_id
+        datetime created_at
+        float commission_rate
+        float total_revenue_accumulated
+    }
+
+    PHOTO {
+        uuid id PK
+        uuid occurrence_id FK
+        uuid photographer_id FK
+        uuid seeker_id FK
+        string s3_key
+        string type "kaptured or b_roll"
         datetime uploaded_at
+        bool identified
+    }
+
+    KAPTURED {
+        uuid photo_id PK,FK
+        string facial_data
+        datetime identified_at
+    }
+
+    B_ROLL {
+        uuid photo_id PK,FK
+        string context_type "scenery, medals, etc."
+        datetime processed_at
     }
 ```
 
+### Entity Descriptions
+
+- **Occurrence**: Central entity representing a physical event or cobertura. Managed by promoters and contains photos from photographers.
+- **Seeker**: Guest end-user attending occurrences. Can become a registered seeker with biometric data and LGPD opt-in.
+- **Registered Seeker**: Extended seeker with saved biometrics, enabling zero-click discovery of their Kaptured photos.
+- **Photographer**: Professional creator supplying photos for occurrences. Receives incentives based on gear detection success.
+- **Photo**: Core asset uploaded by photographers, either becoming Kaptured (identified) or B-roll (contextual).
+- **Kaptured**: Successfully identified photo with facial recognition data, only accessible to the registered seeker after LGPD compliance.
+- **B-roll**: Atmospheric photos bundled into "Pack de Recordação" for monetization, never sold individually.
+
 ## 'Kaptured' Sequence Diagram
 
-The sequence diagram illustrates the data flow from photo upload to 'Zero-Click Discovery' for a registeredSeeker.
+The sequence diagram details the end-to-end flow for creating and discovering Kaptured photos, from photographer upload through AI processing to registered seeker discovery. This workflow strictly adheres to privacy rules and zero-click discovery.
 
 ```mermaid
 sequenceDiagram
     participant P as Photographer
-    participant F as Next.js Frontend
-    participant B as Go Backend
-    participant AI as AI Service
-    participant DB as PostgreSQL
-    participant S3 as S3 Storage
-    participant S as Seeker
+    participant F as Kapt Frontend
+    participant B as Kapt Backend
+    participant DB as PostgreSQL Database
+    participant S as S3 Storage
+    participant AI as AI Identification Service
+    participant RS as Registered Seeker
 
-    P->>F: Upload photo file
-    F->>B: POST /api/photos/upload
-    B->>S3: Store photo file
-    S3-->>B: File URL
+    P->>F: Upload photos for occurrence
+    F->>B: POST /photos/upload (with files)
     B->>DB: Insert photo metadata
-    DB-->>B: Photo ID
-    B->>AI: Send photo for processing
-    AI->>S3: Retrieve photo file
-    S3-->>AI: Photo data
-    AI->>AI: Analyze & identify seeker
-    AI-->>B: Identification results
-    B->>DB: Update photo with Kaptured status
-    DB-->>B: Confirmation
+    B->>S: Store photo files
+    B->>AI: Request identification (facial + gear)
+    AI->>AI: Process photo
+    AI->>B: Return identification results
+    B->>DB: Update photo as Kaptured (if identified)
+    B->>DB: Extract DaaS data (gear wear)
 
-    Note over B: Photo is now 'Kaptured'
-
-    S->>F: Login as registeredSeeker
-    F->>B: GET /api/seeker/photos
+    Note over RS: Zero-Click Discovery
+    RS->>F: Access "🔒 Sua Galeria Privada"
+    F->>B: GET /photos/kaptured (authenticated)
     B->>DB: Query Kaptured photos for seeker
-    DB-->>B: Photo list
-    B-->>F: Return photo data
-    F-->>S: Display private gallery
+    B->>F: Return photo list
+    F->>S: Fetch photo files
+    F->>RS: Display private gallery
+
+    Note over B: Monetization Logic
+    B->>DB: Calculate photographer bonus (+5% for gear detection)
+    B->>DB: Prepare DaaS insights for brands
 ```
 
-## Component Responsibilities
+### Sequence Description
 
-### Next.js Frontend
-- **Responsibility**: Provides the web interface for seekers and photographers, handling user interactions and displaying data.
-- **Backend Integration**: Communicates with the Go Backend via REST/GraphQL APIs for data retrieval and submission.
-- **Data Persistence**: Does not handle data persistence directly; relies on backend for all database operations.
+1. **Upload Phase**: Photographer uploads photos via the frontend, which are stored in S3 and metadata saved in PostgreSQL.
+2. **Processing Phase**: Backend sends photos to AI service for identification. Successful identification creates Kaptured entries with facial data.
+3. **DaaS Extraction**: Gear detection data is extracted for monetization, triggering photographer incentives.
+4. **Discovery Phase**: Registered seekers automatically see their Kaptured photos in the private gallery without manual search, per zero-click discovery rule.
+5. **Privacy Enforcement**: All access requires LGPD opt-in and authentication; no public galleries exist.
 
-### Go Backend
-- **Responsibility**: Implements business logic, API endpoints, and orchestrates interactions between services.
-- **Backend Integration**: Serves as the central hub, integrating with PostgreSQL for data operations, S3 for file storage, and AI Service for photo processing.
-- **Data Persistence**: Manages all CRUD operations on PostgreSQL, ensuring data consistency and enforcing business rules.
-
-### PostgreSQL Database
-- **Responsibility**: Stores structured data including user profiles, occurrences, photos metadata, and relationships.
-- **Backend Integration**: Connected to Go Backend via SQL queries generated by sqlc.
-- **Data Persistence**: Primary data store, ensuring ACID compliance and referential integrity.
-
-### S3 Storage
-- **Responsibility**: Stores photo files and other assets in a scalable, durable object storage system.
-- **Backend Integration**: Accessed by Go Backend for file uploads/downloads and by AI Service for photo analysis.
-- **Data Persistence**: Provides long-term storage with high availability and low latency access.
-
-### AI Service
-- **Responsibility**: Processes uploaded photos to identify seekers using biometric data and machine learning algorithms.
-- **Backend Integration**: Receives photo processing requests from Go Backend and returns identification results.
-- **Data Persistence**: Does not persist data directly; relies on backend for storing processed results in PostgreSQL.
+This architecture ensures the Kapt platform delivers on its core promise of private, automated photo discovery while enabling DaaS revenue streams.
