@@ -95,10 +95,11 @@ O backend requer duas variáveis de ambiente:
 
 ```bash
 cd /workspace/services
-DB_SOURCE="postgresql://kapt_admin:kapt_password@localhost:5432/kapt_local?sslmode=disable" \
-JWT_SECRET="meu-segredo-super-secreto-kapt!!" \
+cp .env.example .env
 go run ./cmd/api
 ```
+
+> If you want to override values, set `DB_SOURCE` or `JWT_SECRET` in your shell before running.
 
 ---
 
