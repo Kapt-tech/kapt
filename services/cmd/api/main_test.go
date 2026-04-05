@@ -18,7 +18,11 @@ func TestLoadEnvFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get cwd: %v", err)
 	}
-	defer os.Chdir(oldWd)
+	defer func() {
+		if err := os.Chdir(oldWd); err != nil {
+			t.Fatalf("failed to restore cwd: %v", err)
+		}
+	}()
 
 	if err := os.Chdir(tmpDir); err != nil {
 		t.Fatalf("failed to chdir: %v", err)
@@ -51,7 +55,11 @@ func TestLoadEnvFilePreservesExistingEnv(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get cwd: %v", err)
 	}
-	defer os.Chdir(oldWd)
+	defer func() {
+		if err := os.Chdir(oldWd); err != nil {
+			t.Fatalf("failed to restore cwd: %v", err)
+		}
+	}()
 
 	if err := os.Chdir(tmpDir); err != nil {
 		t.Fatalf("failed to chdir: %v", err)
