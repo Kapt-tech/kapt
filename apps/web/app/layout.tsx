@@ -1,6 +1,7 @@
 import "./globals.css"; // This MUST be the first import
 import type { Metadata } from "next";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { JetBrains_Mono } from 'next/font/google';
 
@@ -25,10 +26,15 @@ export default function RootLayout({
       <head>
         <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
       </head>
-      <body className={`antialiased bg-asphaltBlack text-white ${jetbrainsMono.variable}`} suppressHydrationWarning>
+      <body className={`antialiased bg-asphaltBlack text-white font-mono ${jetbrainsMono.variable}`} suppressHydrationWarning>
         <AuthProvider>
-          <Header />
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </AuthProvider>
       </body>
     </html>
