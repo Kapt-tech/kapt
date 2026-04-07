@@ -12,5 +12,11 @@
     }
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "codex.decorations.enabled": false,
+  "codex.explorerDecorations.enabled": false,
+  "codex.files.decorations.enabled": false,
+  "chatgpt.decorations.enabled": false,
+  "chatgpt.explorerDecorations.enabled": false,
+  "chatgpt.files.decorations.enabled": false
 }
