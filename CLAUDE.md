@@ -18,6 +18,18 @@ related_issues: []
 - **Kaptured:** A photo successfully processed and identified.
 - **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação."
 
+### 👤 Seeker Segmentation (Intelligent Journey)
+- **Newbie**: Athlete authenticated via OTP but with no registered biometrics.
+- **Kaptured Seeker**: Athlete with biometrics but no order history (Zero-Click Discovery active).
+- **Legacy Seeker**: Loyal customer with biometrics and at least one completed `order`.
+
+## 🚀 Intelligent Journey Logic (State Check)
+After OTP login, the system follows this logic:
+1. **Newbie**: Selfie Prompt -> Scan Animation (Volt) -> If photos found, request Email/WhatsApp to save and proceed to checkout.
+2. **Kaptured Seeker**: Skip directly to Private Gallery (Zero-Click Discovery) -> Display found photos.
+3. **Legacy Seeker**: Personalized "Welcome Back" message -> Display new photos + unpurchased photos from past events (Upsell).
+4. **Empty State**: "Nice" encouragement message + Future `occurrence` cards with "Interested" CTA.
+
 ## 🎨 Design System & UI Standards
 
 - **Figma Source of Truth**: [Kapt Design Style Guide & Library](https://www.figma.com/make/eFwYWC0REwrqiOKsT2ulOI/Design-Style-Guide-and-Library)
