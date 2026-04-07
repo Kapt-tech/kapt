@@ -16,9 +16,12 @@ export function HeaderActions({ onAuthClick }: HeaderActionsProps) {
       </button>
       <a
         href="/fotografar"
-        className="text-zinc-400 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest border border-pavementGray/80 px-3 py-2 rounded-md transition-colors hover:text-actionVolt hover:border-actionVolt whitespace-nowrap"
+        className="group relative inline-flex items-center px-3 py-2 text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest text-zinc-400 whitespace-nowrap border-2 border-transparent transition-transform duration-200 ease-out hover:-translate-y-0.5"
       >
-        Quer fotografar?
+        <span className="relative z-10 transition-colors duration-300 group-hover:text-actionVolt">
+          Quer fotografar?
+        </span>
+        <span className="pointer-events-none absolute inset-[-2px] rounded-md border-2 border-actionVolt [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-700 ease-out group-hover:[clip-path:inset(0_0_0_0)]" />
       </a>
     </div>
   );
