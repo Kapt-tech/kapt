@@ -13,14 +13,19 @@ import (
 type Querier interface {
 	CreateOccurrence(ctx context.Context, arg CreateOccurrenceParams) (CreateOccurrenceRow, error)
 	CreatePhotographer(ctx context.Context, arg CreatePhotographerParams) (Photographer, error)
-	// Marks an OTP code as consumed to prevent replay attacks
-	MarkOTPUsed(ctx context.Context, id int32) error
 	// Registers a new seeker in the system
 	CreateSeeker(ctx context.Context, email string) (Seeker, error)
 	GetOccurrenceBySlug(ctx context.Context, slug string) (GetOccurrenceBySlugRow, error)
+	// Fetches tier status and effective commission rate for payout calculation
+	GetPhotographerTier(ctx context.Context, id uuid.UUID) (GetPhotographerTierRow, error)
 	// Retrieves a seeker by their unique email address
 	GetSeekerByEmail(ctx context.Context, email string) (Seeker, error)
 	ListOccurrencesByPhotographer(ctx context.Context, photographerID uuid.UUID) ([]ListOccurrencesByPhotographerRow, error)
+	ListPhotographers(ctx context.Context) ([]Photographer, error)
+	// Marks an OTP code as consumed to prevent replay attacks
+	MarkOTPUsed(ctx context.Context, id int32) error
+	// Accumulates revenue after each sale and returns the updated tier row
+	UpdatePhotographerRevenue(ctx context.Context, arg UpdatePhotographerRevenueParams) (UpdatePhotographerRevenueRow, error)
 	// Inserts or updates an OTP code for a specific email
 	UpsertOTP(ctx context.Context, arg UpsertOTPParams) (OtpCode, error)
 	// Validates an OTP code and checks for expiration

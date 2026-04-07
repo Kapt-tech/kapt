@@ -1,15 +1,26 @@
 version: "2"
 sql:
-  - schema: "sqlc/migration/"
-    queries: "sqlc/query/"
+  - schema: "sqlc/migration"
+    queries: "sqlc/query"
     engine: "postgresql"
     gen:
       go:
         package: "repository"
-        # Points exactly to the repository folder inside internal
         out: "internal/repository"
-        emit_json_tags: true
-        emit_interface: true
+        # Overrides to ensure financial precision for KAPT's commission and discount logic
         overrides:
-          - column: "occurrences.location_geom"
-            go_type: "string"
+          # Mapping NUMERIC columns to shopspring/decimal to avoid floating-point errors
+          - column: "photographers.total_revenue_accumulated"
+            go_type:
+              import: "github.com/shopspring/decimal"
+              package: "decimal"
+              type: "Decimal"
+          - column: "photographers.commission_rate"
+            go_type:
+              import: "github.com/shopspring/decimal"
+              package: "decimal"
+              type: "Decimal"
+        # Emit interface to facilitate mocking in unit tests
+        emit_interface: true
+        # Include json tags for the generated structs
+        emit_json_tags: true

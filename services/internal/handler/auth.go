@@ -53,10 +53,12 @@ func (h *Handler) RequestOTP(w http.ResponseWriter, r *http.Request) {
 	// 3. Send successful response
 	// In a production environment, this is where the email trigger (Resend/SendGrid) occurs
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
+	if err := json.NewEncoder(w).Encode(map[string]string{
 		"message": "OTP sent successfully",
 		"code":    code, // Exposed here for testing purposes via Postman/Insomnia
-	})
+	}); err != nil {
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+	}
 }
 
 // VerifyOTPPayload defines the input structure for an OTP verification request
@@ -71,7 +73,9 @@ func (h *Handler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil || payload.Email == "" || payload.Code == "" {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "invalid request"})
+		if err := json.NewEncoder(w).Encode(map[string]string{"error": "invalid request"}); err != nil {
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -84,7 +88,9 @@ func (h *Handler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
 		if errors.Is(err, sql.ErrNoRows) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(map[string]string{"error": "invalid or expired code"})
+			if err := json.NewEncoder(w).Encode(map[string]string{"error": "invalid or expired code"}); err != nil {
+				http.Error(w, "internal server error", http.StatusInternalServerError)
+			}
 			return
 		}
 		http.Error(w, "internal server error", http.StatusInternalServerError)
@@ -133,7 +139,9 @@ func (h *Handler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
 
 	// 5. Return the token
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{"token": signed})
+	if err := json.NewEncoder(w).Encode(map[string]string{"token": signed}); err != nil {
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+	}
 }
 
 // generateRandomCode creates a cryptographically secure numeric string.

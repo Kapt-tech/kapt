@@ -18,6 +18,19 @@ related_issues: []
 - **Kaptured:** A photo successfully processed and identified.
 - **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação."
 
+## 🎨 Design System & UI Standards
+
+- **Figma Source of Truth**: [Kapt Design Style Guide & Library](https://www.figma.com/make/eFwYWC0REwrqiOKsT2ulOI/Design-Style-Guide-and-Library)
+- **Core Tokens**:
+  - `actionVolt`: `#CEFF00` (Primary accent color)
+  - `asphaltBlack`: `#0A0A0A` (Main background color)
+  - `pavementGray`: `#262626` (Secondary background and card color)
+- **Typography**:
+  - **Family**: `JetBrains Mono` strictly for navigation, technical labels, and numeric data.
+- **Strict UI Constraints**:
+  - **Hero Proportions**: The "COBERTURAS" header must maintain balanced, proportional sizing relative to the logo. Do NOT allow automated scaling to become oversized or desproportional.
+  - **Precedence**: This Style Guide and its associated tokens always override automated AI design inferences.
+
 ## 🚀 Business Rules & Core Logic (The "Kapt Constitution")
 
 ### 1. Privacy & LGPD Compliance
@@ -37,11 +50,33 @@ related_issues: []
 - UI Labels are strictly in Portuguese.
 - Status labels: **"Em breve"** (future) or **"Fotos Disponíveis"** (past).
 
-### 4. Testing & Pull Request Flow (Strict Protocol)
+### 4. Branch Strategy & Environments
 
-- **Test-Driven:** Every feature MUST include automated tests. Run them before staging.
-- **No Direct Main Commits:** Always use feature branches (e.g., `feat/seeker-auth`).
-- **PR Process:** Use Conventional Commits and wait for user review.
+Two long-lived branches:
+
+| Branch | Environment | Purpose |
+| --- | --- | --- |
+| `feat/<issue>-<desc>` | Local dev | Active feature development |
+| `develop` | Development / Staging | Integration and pre-production validation |
+| `main` | Production | Live — never touched without explicit release request |
+
+### 5. Pull Request & Commit Flow (Strict Protocol)
+
+- **Test-Driven:** Every feature MUST include automated tests. Run them before opening a PR.
+- **Picking up an Issue:** Always create a feature branch from `develop` first:
+  `git checkout develop && git checkout -b feat/<issue-number>-<short-description>`
+- **PR Target:** Feature branches → `develop`. Never open a PR directly to `main`.
+- **docs: / chore: changes:** Commit directly to `develop` — no branch, no PR.
+- **Production release:** `develop` → `main` only on explicit user request.
+- **PR Process:** Use Conventional Commits, open PR, wait for user review before merging.
+- **Fork Sync:** After every merge to `develop` in `Kapt-tech/kapt`, sync the personal fork:
+
+  ```bash
+  git fetch upstream develop
+  git checkout develop
+  git reset --hard upstream/develop
+  git push origin develop
+  ```
 
 ---
 
@@ -55,9 +90,35 @@ You MUST use this before any implementation. **Do NOT write code** until a desig
 
 ## 🛠 Development Standards
 
-### 1. Commit Convention
+### 1. Database Migration Rigor ([HARD-GATE])
+
+Every change to a database table or creation of a new one MUST follow this sequence — no exceptions:
+
+1. Create a new numbered migration file in `services/sqlc/migration/` following the pattern `00000X_<name>.sql`
+2. Run `sqlc generate` from `services/` to update Go models and queries
+3. Include **both** the `.sql` migration file and the resulting generated Go code in the same commit
+
+**Never** perform database schema changes without a corresponding migration file.
+
+Migration file naming: `000001_init_schema.up.sql`, `000002_auth_schema.sql`, `000003_<next>.sql`, etc.
+
+### 2. Commit Convention
 
 Format: `<type>(<scope>): <description>` (feat, fix, docs, style, refactor, test, chore).
+
+### 2. Branch Naming
+
+Format: `<type>/<issue-number>-<short-description>`
+
+| Type | When | Example |
+| --- | --- | --- |
+| `feat/` | New feature from Kanban issue | `feat/25-selfie-capture` |
+| `fix/` | Bug fix or security patch | `fix/38-auth-hardening` |
+| `refactor/` | Code restructuring, no behaviour change | `refactor/12-auth-middleware` |
+| `test/` | Tests only | `test/25-selfie-coverage` |
+
+- `docs:` and `chore:` changes → commit directly to `develop`, no branch needed.
+- Always include the issue number when one exists.
 
 ### 2. Documentation Naming
 
@@ -105,3 +166,11 @@ Issues MUST include: **Objective**, **Tasks for Claude Code**, and **Related Spe
 
 *Use this to start coding a specific issue from the "To Do" column.*
 > "Read **@CLAUDE.md** and **[MENTION_SPECS_WITH_@]**. Use `gh issue view [ID]` to fetch requirements and create a step-by-step implementation plan for **[FEATURE_NAME]**. Do not write any code until I approve the plan."
+
+---
+
+## 🗺️ System Architecture Reference
+
+For all deep technical schemas, entity relationships, and backend sequence flows, consult [docs/specification/tech-system-design.md](docs/specification/tech-system-design.md).
+
+This file serves as the authoritative source for system architecture documentation, including C4 container diagrams, ERDs, and sequence diagrams for key workflows in the Kapt platform.

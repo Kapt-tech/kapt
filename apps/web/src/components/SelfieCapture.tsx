@@ -115,7 +115,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="selfie-modal-title"
-                className="relative w-full max-w-sm mx-4 bg-pavement border border-white/10 rounded-card p-8 shadow-2xl"
+                className="relative w-full max-w-sm mx-4 bg-pavementGray border border-white/10 rounded-card p-8 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
@@ -140,7 +140,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                     </h2>
                     {step === 'camera' && !permissionDenied && (
                         <p className="text-zinc-400 text-sm mt-2">
-                            Posicione seu rosto no centro e clique em "Tirar foto".
+                            Posicione seu rosto no centro e clique em &quot;Tirar foto&quot;.
                         </p>
                     )}
                     {step === 'consent' && (
@@ -174,7 +174,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                             <canvas ref={canvasRef} className="hidden" />
                             <button
                                 onClick={handleCapture}
-                                className="w-full bg-volt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
+                                className="w-full bg-actionVolt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
                             >
                                 Tirar foto
                             </button>
@@ -185,10 +185,11 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                 {/* Step: consent */}
                 {step === 'consent' && capturedPreview && (
                     <div className="flex flex-col gap-5">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             src={capturedPreview}
                             alt="Sua selfie capturada"
-                            className="w-24 h-24 rounded-full object-cover mx-auto border-2 border-volt/40 scale-x-[-1]"
+                            className="w-24 h-24 rounded-full object-cover mx-auto border-2 border-actionVolt/40 scale-x-[-1]"
                         />
 
                         <fieldset className="flex flex-col gap-3">
@@ -203,7 +204,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                                     value="global"
                                     checked={consentType === 'global'}
                                     onChange={() => setConsentType('global')}
-                                    className="mt-0.5 accent-volt"
+                                    className="mt-0.5 accent-actionVolt"
                                 />
                                 <span className="flex flex-col">
                                     <span className="text-white text-sm font-bold">Global</span>
@@ -220,7 +221,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                                     value="event"
                                     checked={consentType === 'event'}
                                     onChange={() => setConsentType('event')}
-                                    className="mt-0.5 accent-volt"
+                                    className="mt-0.5 accent-actionVolt"
                                 />
                                 <span className="flex flex-col">
                                     <span className="text-white text-sm font-bold">Evento-específico</span>
@@ -233,7 +234,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
 
                         <button
                             onClick={handleSubmit}
-                            className="w-full bg-volt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
+                            className="w-full bg-actionVolt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
                         >
                             Confirmar
                         </button>
@@ -250,7 +251,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                 {/* Step: submitting */}
                 {step === 'submitting' && (
                     <div className="flex flex-col items-center gap-3 py-6">
-                        <Loader2 size={36} className="animate-spin text-volt" />
+                        <Loader2 size={36} className="animate-spin text-actionVolt" />
                         <p className="text-zinc-400 text-sm">Buscando suas fotos...</p>
                     </div>
                 )}
@@ -258,7 +259,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                 {/* Step: success */}
                 {step === 'success' && (
                     <div className="flex flex-col items-center gap-3 py-6">
-                        <CheckCircle2 size={40} className="text-volt" />
+                        <CheckCircle2 size={40} className="text-actionVolt" />
                         <p className="text-white font-bold text-sm">Fotos sendo buscadas!</p>
                     </div>
                 )}
@@ -269,7 +270,7 @@ export const SelfieCapture = ({ isOpen, onClose, onSuccess }: SelfieCaptureProps
                         <p role="alert" className="text-red-400 text-sm text-center">{errorMsg}</p>
                         <button
                             onClick={handleRetake}
-                            className="w-full bg-volt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
+                            className="w-full bg-actionVolt text-black font-black text-[11px] uppercase tracking-widest rounded-lg py-3 hover:brightness-110 transition-all"
                         >
                             Tentar novamente
                         </button>

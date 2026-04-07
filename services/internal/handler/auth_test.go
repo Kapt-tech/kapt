@@ -45,6 +45,12 @@ func (s *stubRepo) CreateSeeker(_ context.Context, email string) (repository.See
 	return sk, nil
 }
 
+func (s *stubRepo) GetPhotographerTier(_ context.Context, _ uuid.UUID) (repository.GetPhotographerTierRow, error) {
+	return repository.GetPhotographerTierRow{}, nil
+}
+func (s *stubRepo) UpdatePhotographerRevenue(_ context.Context, _ repository.UpdatePhotographerRevenueParams) (repository.UpdatePhotographerRevenueRow, error) {
+	return repository.UpdatePhotographerRevenueRow{}, nil
+}
 func (s *stubRepo) UpsertOTP(_ context.Context, _ repository.UpsertOTPParams) (repository.OtpCode, error) {
 	return repository.OtpCode{}, nil
 }
@@ -58,6 +64,9 @@ func (s *stubRepo) GetOccurrenceBySlug(_ context.Context, _ string) (repository.
 	return repository.GetOccurrenceBySlugRow{}, nil
 }
 func (s *stubRepo) ListOccurrencesByPhotographer(_ context.Context, _ uuid.UUID) ([]repository.ListOccurrencesByPhotographerRow, error) {
+	return nil, nil
+}
+func (s *stubRepo) ListPhotographers(_ context.Context) ([]repository.Photographer, error) {
 	return nil, nil
 }
 
@@ -86,7 +95,9 @@ func TestVerifyOTP_ValidCode_ReturnsJWT(t *testing.T) {
 		t.Fatalf("expected 200, got %d — body: %s", w.Code, w.Body.String())
 	}
 	var resp map[string]string
-	json.NewDecoder(w.Body).Decode(&resp)
+	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
+		t.Fatalf("failed to decode response: %v", err)
+	}
 	if resp["token"] == "" {
 		t.Fatal("expected non-empty token in response")
 	}
@@ -163,7 +174,9 @@ func TestVerifyOTP_JWTDoesNotContainEmail(t *testing.T) {
 	h.VerifyOTP(w, req)
 
 	var resp map[string]string
-	json.NewDecoder(w.Body).Decode(&resp)
+	if err := json.NewDecoder(w.Body).Decode(&resp); err != nil {
+		t.Fatalf("failed to decode response: %v", err)
+	}
 
 	// Decode JWT payload without verifying signature — just inspect claims
 	parts := strings.Split(resp["token"], ".")

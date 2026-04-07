@@ -3,7 +3,7 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                volt: "#CEFF00",
+                actionVolt: "#CEFF00",
                 carbon: {
                     DEFAULT: "#1A1A1A",
                     light: "#2A2A2A",

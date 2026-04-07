@@ -1,8 +1,10 @@
+-- +goose Up
+
 -- Enable PostGIS
 CREATE EXTENSION IF NOT EXISTS postgis;
 
--- Photographers Table
-CREATE TABLE photographers (
+-- Photographers table
+CREATE TABLE IF NOT EXISTS photographers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -12,8 +14,8 @@ CREATE TABLE photographers (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Occurrences Table
-CREATE TABLE occurrences (
+-- Occurrences table
+CREATE TABLE IF NOT EXISTS occurrences (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     photographer_id UUID NOT NULL REFERENCES photographers(id) ON DELETE CASCADE,
     title TEXT NOT NULL,
@@ -27,4 +29,11 @@ CREATE TABLE occurrences (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_occurrences_location ON occurrences USING GIST(location_geom);
+CREATE INDEX IF NOT EXISTS idx_occurrences_location ON occurrences USING GIST(location_geom);
+
+-- +goose Down
+
+DROP INDEX IF EXISTS idx_occurrences_location;
+DROP TABLE IF EXISTS occurrences;
+DROP TABLE IF EXISTS photographers;
+DROP EXTENSION IF EXISTS postgis;

@@ -41,7 +41,23 @@ Kapt is a **high-performance digital platform for the management, distribution, 
 
 ## 5. Development Standards
 
-- **Methodology:** Spec-Driven Development (SDD). All code must align with `docs/specification/`.
+- **Methodology:** Spec-Driven Development (SDD). All code must align with `docs/specification/`. No implementation without an approved spec.
 - **UI/UX:** Focus on "Zero-Click Discovery" and premium "Multisport Mosaic" interfaces.
-- **Security:** JWT + OTP for passwordless sessions.
+- **Security:** JWT (HS256, no PII in claims) + OTP (crypto/rand, no hardcoded fallbacks) for passwordless sessions.
 - **Localization:** UI labels in PT-BR; technical specs in English.
+
+### Database Migration Rigor
+
+Every schema change requires a numbered migration file in `services/sqlc/migration/` (`00000X_name.sql`), followed immediately by `sqlc generate` from `services/`. Both the `.sql` file and the generated Go code ship in the same commit. No schema changes without a migration file.
+
+### Branch Strategy
+
+| Branch | Environment | Promoted via |
+| --- | --- | --- |
+| `feat/<issue>-<desc>` | Local dev | PR → `develop` |
+| `develop` | Integration | Explicit request → `staging` |
+| `staging` | Pre-production QA | Explicit request → `main` |
+| `main` | Production | Never touched without release request |
+
+- `docs:` / `chore:` changes commit directly to `develop` — no branch or PR needed.
+- After every merge to `develop` in `Kapt-tech/kapt`, sync the personal fork (`antonioroque200OK/kapt`).

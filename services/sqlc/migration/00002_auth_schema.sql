@@ -1,10 +1,13 @@
--- migration/000002_auth_schema.sql
--- Comments in English as requested
+-- +goose Up
+
+-- Seekers table
 CREATE TABLE IF NOT EXISTS seekers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email TEXT UNIQUE NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- OTP codes table for email-based authentication
 CREATE TABLE IF NOT EXISTS otp_codes (
     id SERIAL PRIMARY KEY,
     email TEXT NOT NULL,
@@ -13,3 +16,8 @@ CREATE TABLE IF NOT EXISTS otp_codes (
     used BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- +goose Down
+
+DROP TABLE IF EXISTS otp_codes;
+DROP TABLE IF EXISTS seekers;

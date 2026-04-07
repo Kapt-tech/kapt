@@ -1,10 +1,6 @@
 "use client";
 
-import { useState } from 'react';
 import { OccurrenceCard } from '@/components/OccurrenceCard';
-import { OTPModal } from '@/components/OTPModal';
-import { SelfieCapture } from '@/components/SelfieCapture';
-import { Navbar } from '@/components/Navbar';
 import { MOCK_OCCURRENCES } from '@/mocks/occurrences';
 
 // Presentation Data
@@ -17,68 +13,8 @@ const presentation_images = [
 ];
 
 export default function Page() {
-  const [isOTPOpen, setIsOTPOpen] = useState(false);
-  const [isSelfieCaptureOpen, setIsSelfieCaptureOpen] = useState(false);
-
-  const handleAuthSuccess = (token: string) => {
-    localStorage.setItem('kapt_token', token);
-    setIsOTPOpen(false);
-    setIsSelfieCaptureOpen(true);
-  };
-
   return (
     <main className="min-h-screen bg-black text-white p-6 md:p-12">
-      <OTPModal
-        isOpen={isOTPOpen}
-        onClose={() => setIsOTPOpen(false)}
-        onSuccess={handleAuthSuccess}
-      />
-      <SelfieCapture
-        isOpen={isSelfieCaptureOpen}
-        onClose={() => setIsSelfieCaptureOpen(false)}
-        onSuccess={() => setIsSelfieCaptureOpen(false)}
-      />
-
-      {/* Header: Brand Identity and Top-Aligned Navigation */}
-      <header className="mb-20 max-w-7xl mx-auto border-b border-white/10 pb-12">
-        <div className="flex flex-col gap-8">
-
-          {/* Top Row: Logo and Navbar Aligned */}
-          <div className="flex flex-row items-start justify-between w-full">
-            <h1 className="text-volt text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none italic">
-              KAPT
-            </h1>
-            <div className="pt-4"> {/* Subtle padding to align with the visual top of the italic font */}
-              <Navbar />
-            </div>
-          </div>
-
-          {/* Bottom Row: Description and Contextual Info */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between w-full">
-            <p className="text-zinc-200 text-lg md:text-xl font-semibold tracking-tight max-w-lg">
-              Galerias oficiais de eventos multiesportivos.
-            </p>
-
-            <div className="flex flex-col items-end gap-4 mt-8 md:mt-0">
-              <span className="text-3xl md:text-5xl font-medium tracking-[0.25em] text-white uppercase font-mono">
-                Coberturas
-              </span>
-              <div className="flex items-center gap-6">
-                <span className="text-zinc-100 text-sm font-mono uppercase tracking-[0.2em] hidden md:inline">
-                  {MOCK_OCCURRENCES.length} {MOCK_OCCURRENCES.length === 1 ? 'ATIVO' : 'ATIVOS'}
-                </span>
-                <button
-                  onClick={() => setIsOTPOpen(true)}
-                  className="bg-volt hover:bg-[#dbff33] text-black font-extrabold text-xs uppercase tracking-widest px-10 py-3.5 rounded-sm transition-[background-color,box-shadow,transform] duration-[240ms] ease-out shadow-[0_4px_20px_-4px_rgba(206,255,0,0.25)] hover:shadow-[0_0_36px_10px_rgba(206,255,0,0.35)] hover:-translate-y-px"
-                >
-                  Entrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
         {MOCK_OCCURRENCES.map((occ) => (
