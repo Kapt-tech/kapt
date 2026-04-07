@@ -18,12 +18,11 @@ Kapt is a high-performance digital platform for the management, distribution, an
 - **AI-Driven Automated Tagging:**
   - **Facial Recognition:** High-precision identification of athletes across thousands of photos.
   - **Equipment & Brand Detection:** Automatic identification of footwear (running shoes), apparel, and gear (bikes, helmets, watches).
-- **"Wearing" State & Analytics:** Analysis of brand loyalty, equipment wear-and-tear levels, and color preferences to generate consumer profiles.
-- **Multisport Mosaic Interface:** Dynamic, responsive home screen utilizing high-density image grids for active "Coberturas."
-- **Secure OTP Authentication:** Passwordless, friction-free login flow via email/mobile.
-- **DaaS Market Intelligence:** Aggregated data on brand dominance, gear lifespan, and demographic equipment trends.
+- **\"Wearing\" State & Analytics:** Analysis of brand loyalty, equipment wear-and-tear levels, and color preferences to generate consumer profiles.
+- **Multisport Mosaic Interface:** Dynamic, responsive home screen utilizing high-impact "Action Volt" (#CEFF00) aesthetics.
+- **Zero-Click Discovery:** Registered athletes receive their private gallery automatically via biometric matching, eliminating manual search.
 
-## 3. Technical Stack & Architecture
+## 3. Technology Stack & Scalability
 
 - **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS.
 - **Backend:** Go (Golang) for high-concurrency API and data processing.
@@ -34,14 +33,15 @@ Kapt is a high-performance digital platform for the management, distribution, an
 ## 4. Design Style Guide (Black & Volt)
 
 - **Palette:** Background: Absolute Black (#000000); Accent: Volt (#CEFF00) for CTAs; Secondary: Zinc Grays.
-- **Typography:** Brand: Heavy, italicized bold "KAPT"; Functional: Monospaced for technical labels (e.g., "COBERTURAS").
+- **Typography:** Brand: Heavy, italicized bold "KAPT"; Functional: JetBrains Mono for technical labels (e.g., "COBERTURAS").
 
 ## 5. Evolution Phases
 
 - **Phase 1 (Current):** Infrastructure stabilization. Next.js + Go core, basic gallery, and OTP authentication.
 - **Phase 2 (AI Integration):** Implementation of automated facial and bib-number recognition. Launch of the "Creator Dashboard."
 - **Phase 3 (Apparel & Gear Analytics):** Deployment of CV models to detect equipment brands and "wearing" states.
-- **Phase 4 (DaaS Full Launch):** Real-time dashboarding and predictive analytics for retailers.
+- **Phase 4 (DaaS Full Launch & AI Ecosystem):** - **Real-time Insights:** Dashboarding and predictive analytics for retailers.
+  - **MCP Server Implementation:** Disponibilização de um servidor **Model Context Protocol (MCP)** para permitir que parceiros de varejo consultem o DaaS do Kapt via agentes de IA, extraindo insights de mercado via linguagem natural de forma segura e padronizada.
 
 ## 6. Official Glossary
 
@@ -50,4 +50,5 @@ Kapt is a high-performance digital platform for the management, distribution, an
 - `occurrence`: The sporting event.
 - `promoter`: The event organizer.
 - `photographer`: The professional "Creator" supplying photos.
-- `actionVolt`: Our Design System (Table Black + Volt accent).
+- `Kaptured`: A photo successfully identified by the AI.
+- `Action Volt`: The primary brand color (#CEFF00).
