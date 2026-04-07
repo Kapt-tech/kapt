@@ -14,9 +14,9 @@ const presentation_images = [
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-black text-white p-6 md:p-12">
+    <main className="min-h-screen bg-black text-white px-0 md:px-1 py-6 md:py-12">
       {/* Main Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-[1440px] mx-auto">
         {MOCK_OCCURRENCES.map((occ) => (
           <OccurrenceCard
             key={occ.id}

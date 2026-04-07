@@ -8,7 +8,7 @@ interface HeaderHeroProps {
 
 export function HeaderHero({ pageTitle, onAuthClick }: HeaderHeroProps) {
   return (
-    <div className="flex flex-row items-center gap-12">
+    <div className="flex flex-row items-center justify-end gap-12 w-full ml-auto">
       <Title text={pageTitle} />
       <HeaderActions onAuthClick={onAuthClick} />
     </div>

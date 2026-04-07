@@ -18,14 +18,16 @@ export function Header() {
   }
 
   return (
-    <header className="mb-12 max-w-7xl mx-auto px-6 border-b border-white/10 pb-8 pt-12">
-      <div className="flex flex-row justify-between items-start w-full">
+    <header className="mb-12 max-w-[1440px] mx-auto px-0 md:px-1 border-b border-white/20 pb-8 pt-12">
+      <div className="flex flex-row justify-between items-start w-full gap-20">
         {/* Left Side: Brand Identity and Tagline */}
-        <Brand />
+        <div className="shrink-0">
+          <Brand />
+        </div>
 
         {/* Right Side: Navigation and Contextual Info */}
-        <div className="flex flex-col items-end text-right">
-          <div className="mb-14">
+        <div className="flex flex-col items-end text-right flex-1 ml-auto pr-0">
+          <div className="mb-14 w-fit ml-auto">
             <Navbar />
           </div>
 
