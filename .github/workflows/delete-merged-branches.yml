@@ -1,6 +1,6 @@
 name: Delete merged branches
 
-on:
+"on":
   pull_request:
     types:
       - closed
