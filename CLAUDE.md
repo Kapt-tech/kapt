@@ -9,6 +9,8 @@ related_issues: []
 
 ## 📖 Glossary & Entities (Strict Camel Case Enforced)
 
+### ⚡ Technical Terms
+
 - `occurrence`: The central domain entity. Represents a physical event/cobertura.
 - `seeker`: The guest end-user/athlete (end consumer).
 - `registeredSeeker`: A returning athlete with saved biometrics and LGPD opt-in.
@@ -16,12 +18,19 @@ related_issues: []
 - `photographer`: The professional "Creator" supplying photos.
 - `actionVolt`: Our Design System (Black #000000 + Volt #CEFF00 accent).
 - **Kaptured:** A photo successfully processed and identified.
-- **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação."
+- **Showcase**: The public-facing landing page of an Occurrence, populated by B-roll and opted-in athlete photos.
+- **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação." and Non-athlete photos (landscape, medals, trophies) used to create the event's "Showcase."
+- **Subject**: The primary focus of a photo (usually the athlete's body and face).
+- **Auto-Crop (On-the-fly)**: AI-driven image resizing triggered only at the moment of download/share to save compute costs.
+- **LGPD Bounty**: A fixed financial micro-reward given to photographers for completing an event's B-roll requirements.
+- **Social Version**: A low-res, auto-cropped (9:16) version of a purchased photo, featuring a minimalist "kapt.life" frame for social media sharing.
 
-### 👤 Seeker Segmentation (Intelligent Journey)
-- **Newbie**: Athlete authenticated via OTP but with no registered biometrics.
-- **Kaptured Seeker**: Athlete with biometrics but no order history (Zero-Click Discovery active).
-- **Legacy Seeker**: Loyal customer with biometrics and at least one completed `order`.
+### 👤 User Roles & States
+- **Newbie**: Authenticated user (OTP) without biometrics. A "lead" in the awareness stage.
+- **Kaptured Seeker**: User with registered biometrics but zero purchase history.
+- **Legacy Seeker**: High-LTV customer with at least one completed purchase.
+- **Data Pioneer**: Photographer who uploaded legacy archives to train the Kapt AI during the "Ingestion Phase."
+- **Founder Creator**: Early-adopter photographer with 0% fees for 6 months or R$ 5k in sales.
 
 ## 🚀 Intelligent Journey Logic (State Check)
 After OTP login, the system follows this logic:
