@@ -71,7 +71,12 @@ After OTP login, the system follows this logic:
 - UI Labels are strictly in Portuguese.
 - Status labels: **"Em breve"** (future) or **"Fotos Disponíveis"** (past).
 
-### 4. Branch Strategy & Environments
+### 4. 🔑 Access & Navigation Policy
+- **Freedom of Content**: Access to "Blog", "Sobre", and "Coberturas" (B-roll) is unrestricted for all users, including Newbies.
+- **Selective Friction**: The Facial Scan Modal is triggered ONLY when a user attempts to access personalized data via UI labels like "BUSCAR MINHAS FOTOS" or "MINHA ÁREA".
+- **Graceful Dismissal**: If a user closes the Selfie Modal, they are returned to their previous public view without forced logout.
+
+### 5. Branch Strategy & Environments
 
 Two long-lived branches:
 
@@ -81,7 +86,7 @@ Two long-lived branches:
 | `develop` | Development / Staging | Integration and pre-production validation |
 | `main` | Production | Live — never touched without explicit release request |
 
-### 5. Pull Request & Commit Flow (Strict Protocol)
+### 6. Pull Request & Commit Flow (Strict Protocol)
 
 - **Test-Driven:** Every feature MUST include automated tests. Run them before opening a PR.
 - **Picking up an Issue:** Always create a feature branch from `develop` first:
