@@ -20,10 +20,10 @@ related_issues: []
 - **Kaptured:** A photo successfully processed and identified.
 - **Showcase**: The public-facing landing page of an Occurrence, populated by B-roll and opted-in athlete photos.
 - **B-roll / Context:** Atmosphere photos (scenery, medals). Bundled into the "Pack de Recordação." and Non-athlete photos (landscape, medals, trophies) used to create the event's "Showcase."
-- **Subject**: The primary focus of a photo (usually the athlete's body and face).
-- **Auto-Crop (On-the-fly)**: AI-driven image resizing triggered only at the moment of download/share to save compute costs.
-- **LGPD Bounty**: A fixed financial micro-reward given to photographers for completing an event's B-roll requirements.
-- **Social Version**: A low-res, auto-cropped (9:16) version of a purchased photo, featuring a minimalist "kapt.life" frame for social media sharing.
+- **Subject**: The primary focus of a photo (athlete's body/face/bib).
+- **Auto-Crop (On-the-fly)**: AI-driven 9:16 resizing triggered only upon social sharing.
+- **LGPD Bounty**: Fixed reward for photographers completing B-roll requirements.
+- **Social Version**: A low-res, auto-cropped photo with a "kapt.life" frame for every 5 purchases.
 
 ### 👤 User Roles & States
 - **Newbie**: Authenticated user (OTP) without biometrics. A "lead" in the awareness stage.

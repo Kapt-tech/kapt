@@ -52,3 +52,19 @@ Kapt is a high-performance digital platform for the management, distribution, an
 - `photographer`: The professional "Creator" supplying photos.
 - `Kaptured`: A photo successfully identified by the AI.
 - `Action Volt`: The primary brand color (#CEFF00).
+
+## 🟢 Addendum: Intelligent Journey & Conversion Logic
+
+### 1. Seeker Experience & Gamification
+- **Zero-Click Discovery**: Upon OTP validation, Newbies are forced into a "Selfie Prompt" to unlock their private gallery.
+- **Social Version (Gift Strategy)**: To protect revenue, free downloads are not granted upfront. Instead, a Legacy Seeker receives one "Social Version" (9:16 auto-cropped photo with a minimalist 'kapt.life' frame) for every 5 paid photos in their global history.
+- **AI Selection**: The system automatically selects the "best" aesthetic photo (based on focus/framing scores) to be the designated Social Gift, minimizing user decision friction and backend processing.
+
+### 2. Creator (Photographer) Tier System
+- **Founder Creator**: 0% platform fee for the first 6 months OR up to R$ 5,000.00 in total sales, whichever comes first.
+- **Data Pioneer**: Creators who ingest legacy archives during the launch phase. After the Founder period ends, they transition to a 8% lifetime fee (instead of the standard 15%).
+- **B-roll / Showcase Bounty**: A one-time fixed reward (e.g., R$ 5.00) is granted per Occurrence once the photographer completes the "Showcase Mission" (uploading at least 20 valid context photos).
+
+### 3. Infrastructure & AI Efficiency
+- **On-the-fly Processing**: 9:16 Story/Reels cropping is triggered only upon download/share requests via serverless functions (e.g., AWS Lambda) to keep GPU costs low.
+- **Empty State Design**: Occurrences lacking B-roll will display an "Asphalt Black" hero/mosaic with a 20% opacity KAPT watermark and "Awaiting curation" label to maintain premium branding.
