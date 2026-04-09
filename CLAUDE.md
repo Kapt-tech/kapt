@@ -7,18 +7,6 @@ status: "approved"
 related_issues: []
 ---
 
-## 🧾 Session Handoff (Keep Updated)
-
-If you close the folder or window, use `NOTES.md` to reload context fast. Keep this section in sync with `NOTES.md`.
-
-- **Last updated (UTC):**
-- **Current branch:**
-- **Last commit:**
-- **In-flight changes:**
-- **Open tasks / next steps:**
-- **Decisions made:**
-- **Risks / blockers:**
-
 ## 📖 Glossary & Entities (Strict Camel Case Enforced)
 
 ### ⚡ Technical Terms
