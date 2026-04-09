@@ -9,8 +9,8 @@ services:
       postgres_password: kapt_password
       postgres_db: kapt_local
     ports:
-      - "5433:5432" # Host access (CachyOS) on 5433
-      - "3000:3000" # Next.js dev server (workspace shares this network)
+      - "5433:5432"  # Host access (CachyOS) on 5433
+      - "3000:3000"  # Next.js dev server (workspace shares this network)
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -34,7 +34,7 @@ services:
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
-    network_mode: service:db # Crucial: links workspace localhost to the 'db' service
+    network_mode: service:db  # Crucial: links workspace localhost to the 'db' service
     user: codespace
     command: sleep infinity
 
