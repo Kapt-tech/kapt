@@ -1,9 +1,11 @@
+---
 extends: default
 
 rules:
   line-length:
     max: 160
     level: warning
+  truthy: disable
 
 ignore: |
   node_modules/
