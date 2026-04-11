@@ -112,19 +112,19 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/20">
-        <div className="max-w-[1440px] mx-auto px-0 md:px-1 py-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-zinc-500">
+        <div className="max-w-[1440px] mx-auto px-0 md:px-1 py-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-zinc-400">
           <span>© Kapt 2026.</span>
           <div className="flex items-center gap-2">
             <Link
               href="/politica-de-privacidade"
-              className="transition-colors hover:text-actionVolt/80"
+              className="text-zinc-300 transition-colors hover:text-actionVolt"
             >
               Política de Privacidade
             </Link>
             <span className="opacity-40">•</span>
             <Link
               href="/termos-de-uso"
-              className="transition-colors hover:text-actionVolt/80"
+              className="text-zinc-300 transition-colors hover:text-actionVolt"
             >
               Termos de Uso
             </Link>
