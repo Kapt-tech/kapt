@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "ci:status": "bash ./scripts/ci-status.sh",
+    "ci:watch": "bash ./scripts/ci-status.sh --watch",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
