@@ -12,7 +12,7 @@ export function Header() {
 
   let pageTitle = "Coberturas";
   if (pathname?.includes("/sobre")) {
-    pageTitle = "Sobre";
+    pageTitle = "Sobre Nós";
   } else if (pathname?.includes("/blog")) {
     pageTitle = "Blog";
   }

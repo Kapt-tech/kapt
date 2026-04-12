@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { JetBrains_Mono } from 'next/font/google';
+import { TitleSync } from "@/components/TitleSync";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`antialiased bg-asphaltBlack text-white font-mono ${jetbrainsMono.variable}`} suppressHydrationWarning>
         <AuthProvider>
           <div className="min-h-screen flex flex-col">
+            <TitleSync />
             <Header />
             <main className="flex-1">
               {children}
