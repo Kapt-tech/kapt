@@ -15,6 +15,11 @@ const presentation_images = [
 export default function Page() {
   return (
     <main className="min-h-screen bg-black text-white px-0 md:px-1 py-6 md:py-12">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-0">
+        <p className="mb-10 text-white text-base md:text-lg font-mono font-semibold tracking-[0.22em] uppercase">
+          Galerias de Eventos Multiesportivos
+        </p>
+      </div>
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 max-w-[1440px] mx-auto">
         {MOCK_OCCURRENCES.map((occ) => (

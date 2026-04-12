@@ -8,9 +8,6 @@ export function Brand() {
           KAPT
         </h1>
       </Link>
-      <p className="mt-12 text-white text-base md:text-lg font-mono font-semibold tracking-[0.22em] whitespace-nowrap">
-        Galerias de Eventos Multiesportivos
-      </p>
     </div>
   );
 }
