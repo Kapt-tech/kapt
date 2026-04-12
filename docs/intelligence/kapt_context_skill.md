@@ -61,3 +61,18 @@ Every schema change requires a numbered migration file in `services/sqlc/migrati
 
 - `docs:` / `chore:` changes commit directly to `develop` — no branch or PR needed.
 - After every merge to `develop` in `Kapt-tech/kapt`, sync the personal fork (`antonioroque200OK/kapt`).
+
+### Agent Workflow & Manual Gates
+
+1. **Pick up:** When commanded with "Pick up Issue #X", the agent must:
+   - Identify the issue in the Kanban and move it to `IN PROGRESS`.
+   - Create a branch `feat/<issue-id>-<desc>` from `develop`.
+2. **Implementation:** Implement changes following Kapt's tech specs.
+3. **PR & Review Gate:** After implementation, the agent must:
+   - Push the branch and open a PR to `develop`.
+   - Move the issue to `CODE REVIEW & QA`.
+   - **MANDATORY:** Stop and prompt the user: "PR opened. Please review the diff at <PR_URL> and approve the merge."
+4. **Merge to Develop:** Only proceed after explicit user approval.
+5. **Release Gate:** When merging `develop` to `main`:
+   - Move the issue to `STAGING / UAT`.
+   - **MANDATORY:** Prompt the user for final UAT validation before the final PR to `main`.
