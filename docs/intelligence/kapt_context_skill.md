@@ -59,8 +59,13 @@ Every schema change requires a numbered migration file in `services/sqlc/migrati
 | `staging` | Pre-production QA | Explicit request → `main` |
 | `main` | Production | Never touched without release request |
 
-- `docs:` / `chore:` changes commit directly to `develop` — no branch or PR needed.
 - After every merge to `develop` in `Kapt-tech/kapt`, sync the personal fork (`antonioroque200OK/kapt`).
+
+### Fast-Track for Docs & Chores
+
+- **Exceptions:** Changes categorized as `docs:` (documentation) or `chore:` (dependency updates, configuration, cleanup) are exempt from the standard PR/Review flow.
+- **Direct Merge:** The agent is authorized to commit, push, and merge these changes directly into the `develop` branch without opening a PR or waiting for manual approval.
+- **Trigger Command:** This fast-track is activated by the user command: "Commit the change(s)".
 
 ### Agent Workflow & Manual Gates
 

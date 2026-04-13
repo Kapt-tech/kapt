@@ -50,3 +50,14 @@
 1. Open a Pull Request from `develop` to `main`.
 2. **STOP & PROMPT:** Wait for my explicit confirmation to merge into `main`. 
 3. After my approval, perform the merge, move the Issue to **'DONE'**, and delete the feature branch."
+
+## ⚡ 5. Fast-Track Commit (Docs & Chores Only)
+**Context:** Use this for quick updates to documentation or non-functional configuration that do not require a full PR cycle.
+
+**Prompt:**
+"Categorize these changes as `docs:` or `chore:`. 
+Based on the exception rule in `kapt_context_skill.md`:
+1. **Commit & Push:** Commit the changes directly to the `develop` branch.
+2. **Bypass PR:** Do not open a Pull Request.
+3. **No Approval Needed:** Do not prompt me for diff review or merge approval.
+4. **Action:** Execute the push and simply confirm when the `develop` branch has been updated."
